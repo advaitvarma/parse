@@ -668,7 +668,7 @@
                                                 </div>
                                                 <!-- Active fill line (animated via JS) -->
                                                 <div id="pipeline-fill"
-                                                        class="absolute top-[11px] left-[12.5%] h-[2px] bg-primary rounded-full transition-all duration-300 ease-out"
+                                                        class="absolute top-[11px] left-[12.5%] h-[2px] bg-primary rounded-full transition-all duration-500 ease-out shadow-lg shadow-primary/40"
                                                         style="width: 0%;"></div>
 
                                                 <div class="grid grid-cols-4">
@@ -745,7 +745,7 @@
                                                         class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-outline-variant/30 rounded-full">
                                                 </div>
                                                 <div id="pipeline-fill-mobile"
-                                                        class="absolute left-[10px] top-[11px] w-[2px] bg-primary rounded-full transition-all duration-300 ease-out"
+                                                        class="absolute left-[10px] top-[11px] w-[2px] bg-primary rounded-full transition-all duration-500 ease-out shadow-lg shadow-primary/40"
                                                         style="height: 0%;"></div>
 
                                                 <div class="pipeline-step-m flex items-start gap-lg pb-xl"
@@ -825,7 +825,7 @@
 
 
                         <!-- Try It Section Header -->
-                        <div class="w-full max-w-4xl mx-auto relative z-10 mb-2xl pt-xl">
+                        <div id="try-it-section" class="w-full max-w-4xl mx-auto relative z-10 mb-2xl pt-2xl scroll-reveal">
                                 <span class="text-label-sm uppercase text-primary tracking-[0.2em] font-semibold">TRY
                                         IT YOURSELF</span>
                                 <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm max-w-lg">Ready?
@@ -844,17 +844,17 @@
                                                         class="text-label-sm uppercase text-on-surface-variant tracking-wider">YOUR
                                                         RESUME</span>
                                         </div>
-                                        <div class="card-lift flex-grow min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-2xl cursor-pointer bg-surface-variant/60 backdrop-blur-sm hover:border-primary/50 transition-all group"
+                                        <div class="card-lift flex-grow min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-2xl cursor-pointer bg-surface-variant/60 backdrop-blur-sm hover:border-primary/60 hover:bg-primary/[0.02] transition-all group"
                                                 id="drop-zone">
                                                 <div
-                                                        class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-md group-hover:bg-primary/15 transition-colors">
+                                                        class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-md group-hover:bg-primary/15 group-hover:scale-110 transition-all">
                                                         <span
-                                                                class="material-symbols-outlined text-primary text-2xl">upload_file</span>
+                                                                class="material-symbols-outlined text-primary text-2xl transition-transform group-hover:-translate-y-0.5">upload_file</span>
                                                 </div>
                                                 <p
                                                         class="font-body-sm text-on-surface-variant text-center max-w-[200px]">
                                                         Drag and drop, or <span
-                                                                class="text-primary font-medium">browse files</span>.
+                                                                class="text-primary font-medium underline underline-offset-2">browse files</span>.
                                                         PDF or DOCX.</p>
                                         </div>
                                 </div>
@@ -871,7 +871,7 @@
                                                         DESCRIPTION</span>
                                         </div>
                                         <div
-                                                class="card-lift flex-grow min-h-[240px] flex flex-col rounded-xl bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/30 transition-all">
+                                                class="card-lift flex-grow min-h-[240px] flex flex-col rounded-xl bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/40 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(82,76,237,0.15)] transition-all">
                                                 <textarea aria-label="Job description input"
                                                         class="w-full flex-grow border-0 bg-transparent focus:ring-0 transition-all font-body-md text-on-surface resize-none placeholder:text-on-surface-variant/50"
                                                         placeholder="Paste the job description here..."></textarea>
@@ -883,7 +883,7 @@
                         <!-- CTA Button -->
                         <div class="flex justify-center w-full mt-xl mb-3xl relative z-10">
                                 <a href="loading.html"
-                                        class="btn-shimmer inline-flex items-center text-white rounded-lg px-10 py-4 font-label-md text-base tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] transition-all duration-300">
+                                        class="btn-shimmer inline-flex items-center text-white rounded-lg px-10 py-4 font-label-md text-base tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
                                         Analyze Match
                                         <span
                                                 class="material-symbols-outlined text-sm align-middle ml-sm">arrow_forward</span>
@@ -930,12 +930,12 @@
                 });
 
                 function highlight(e) {
-                        dropZone.classList.add('border-primary', 'bg-primary/5');
+                        dropZone.classList.add('border-primary', 'bg-primary/10', 'scale-[1.01]');
                         dropZone.classList.remove('border-outline-variant', 'bg-surface-variant/60');
                 }
 
                 function unhighlight(e) {
-                        dropZone.classList.remove('border-primary', 'bg-primary/5');
+                        dropZone.classList.remove('border-primary', 'bg-primary/10', 'scale-[1.01]');
                         dropZone.classList.add('border-outline-variant', 'bg-surface-variant/60');
                 }
 
@@ -956,7 +956,7 @@
                                 const file = e.target.files[0];
                                 if (file) {
                                         console.log("File selected:", file.name);
-                                        dropZone.querySelector('p').innerHTML = `<span class="text-primary font-medium">${file.name}</span> selected`;
+                                        dropZone.querySelector('p').innerHTML = `<span class="text-primary font-semibold">${file.name}</span> selected (${Math.round(file.size / 1024)} KB)`;
                                 }
                         };
                         input.click();
