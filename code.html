@@ -588,20 +588,69 @@
 </script>
 
 
+<style>
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+.dark::view-transition-old(root) { z-index: 1; }
+.dark::view-transition-new(root) { z-index: 9999; }
+.light::view-transition-old(root) { z-index: 9999; }
+.light::view-transition-new(root) { z-index: 1; }
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const themeToggleBtn = document.getElementById('theme-toggle');
         if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', function() {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.classList.add('light');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.documentElement.classList.remove('light');
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
+            themeToggleBtn.addEventListener('click', function(e) {
+                const isDark = document.documentElement.classList.contains('dark');
+                
+                function toggleTheme() {
+                    if (isDark) {
+                        document.documentElement.classList.remove('dark');
+                        document.documentElement.classList.add('light');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.documentElement.classList.remove('light');
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
                 }
+
+                if (!document.startViewTransition) {
+                    toggleTheme();
+                    return;
+                }
+
+                const x = e.clientX;
+                const y = e.clientY;
+                const endRadius = Math.hypot(
+                    Math.max(x, innerWidth - x),
+                    Math.max(y, innerHeight - y)
+                );
+
+                const transition = document.startViewTransition(() => {
+                    toggleTheme();
+                });
+
+                transition.ready.then(() => {
+                    const clipPath = [
+                        `circle(0px at ${x}px ${y}px)`,
+                        `circle(${endRadius}px at ${x}px ${y}px)`
+                    ];
+
+                    document.documentElement.animate(
+                        {
+                            clipPath: isDark ? [...clipPath].reverse() : clipPath,
+                        },
+                        {
+                            duration: 500,
+                            easing: 'ease-in-out',
+                            pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)',
+                        }
+                    );
+                });
             });
         }
     });
