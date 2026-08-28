@@ -1,21 +1,59 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en">
+<html lang="en">
 
 <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         
     <script>
-        // Check local storage for theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-        } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-        }
+        (function() {
+            function getInitialTheme() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const themeParam = urlParams.get('theme');
+                    if (themeParam === 'dark' || themeParam === 'light') return themeParam;
+                } catch (e) {}
+
+                try {
+                    const localTheme = localStorage.getItem('theme');
+                    if (localTheme === 'dark' || localTheme === 'light') return localTheme;
+                } catch (e) {}
+
+                try {
+                    const sessionTheme = sessionStorage.getItem('theme');
+                    if (sessionTheme === 'dark' || sessionTheme === 'light') return sessionTheme;
+                } catch (e) {}
+
+                try {
+                    const match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
+                    if (match && (match[1] === 'dark' || match[1] === 'light')) return match[1];
+                } catch (e) {}
+
+                try {
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        return 'dark';
+                    }
+                } catch (e) {}
+
+                return 'light';
+            }
+
+            const initialTheme = getInitialTheme();
+            if (initialTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+
+            // Always reset scroll to hero / top on page refresh
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0, 0);
+        })();
     </script>
 
     <title>Parse - Resume Match Analysis</title>
@@ -212,6 +250,18 @@
     </style>
         <style>
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+                /* Hide browser's default scrollbar */
+                html, body {
+                        scrollbar-width: none;
+                        -ms-overflow-style: none;
+                }
+                html::-webkit-scrollbar,
+                body::-webkit-scrollbar {
+                        display: none;
+                        width: 0;
+                        height: 0;
+                }
 
                 /* Animated floating orbs */
                 @keyframes orb1 {
@@ -595,6 +645,11 @@
     <span class="material-symbols-outlined hidden dark:block">light_mode</span>
 </button>
 
+        <!-- Straight Scroll Progress Bar on Right Side (Full Height) -->
+        <div id="side-progress-track" class="fixed right-0 top-0 bottom-0 w-1 sm:w-1.5 bg-outline-variant/20 dark:bg-outline-variant/15 z-50 pointer-events-none">
+            <div id="side-progress-bar" class="w-full h-full origin-top bg-gradient-to-b from-primary via-primary to-primary-dark rounded-b shadow-[0_0_10px_rgba(82,76,237,0.7)]" style="transform: scaleY(0);"></div>
+        </div>
+
 
         <!-- Parallax glow orbs -->
         <div class="orb orb-1" data-parallax></div>
@@ -607,8 +662,8 @@
                 <main class="flex-grow flex flex-col items-center w-full relative">
 
                         <!-- Hero Section -->
-                        <div
-                                class="text-center w-full relative z-10 min-h-[90vh] flex flex-col justify-center items-center pb-3xl">
+                        <div id="hero-section"
+                                class="text-center w-full relative z-10 min-h-[90vh] flex flex-col justify-center items-center pb-12 -mt-4 md:-mt-8">
                                 <!-- Large centered logo mark -->
                                 <div class="flex justify-center mb-xl w-full animate-fade-up">
                                         <div class="relative">
@@ -637,15 +692,15 @@
                                         highlights missing skills, and suggests improvements in seconds.</p>
 
                                 <!-- Scroll Indicator -->
-                                <div
-                                        class="absolute inset-x-0 bottom-4 flex flex-col items-center justify-center animate-fade-up delay-400">
-                                        <div class="flex flex-col items-center animate-bounce opacity-60">
+                                <a href="#pipeline-container"
+                                        class="absolute inset-x-0 bottom-2 md:bottom-3 flex flex-col items-center justify-center animate-fade-up delay-400 group cursor-pointer no-underline">
+                                        <div class="flex flex-col items-center animate-bounce opacity-60 group-hover:opacity-100 transition-opacity">
                                                 <span
                                                         class="text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface-variant mb-xs ml-[0.2em]">Scroll</span>
                                                 <span
                                                         class="material-symbols-outlined text-on-surface-variant text-lg">arrow_downward</span>
                                         </div>
-                                </div>
+                                </a>
                         </div>
 
 
@@ -680,7 +735,7 @@
                                                         <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="0">
                                                                 <div
-                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
                                                                         <div
                                                                                 class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                         </div>
@@ -696,7 +751,7 @@
                                                         <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="1">
                                                                 <div
-                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
                                                                         <div
                                                                                 class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                         </div>
@@ -712,7 +767,7 @@
                                                         <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="2">
                                                                 <div
-                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
                                                                         <div
                                                                                 class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                         </div>
@@ -728,7 +783,7 @@
                                                         <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="3">
                                                                 <div
-                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
                                                                         <div
                                                                                 class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                         </div>
@@ -760,7 +815,7 @@
                                                 <div class="pipeline-step-m flex items-start gap-lg pb-xl"
                                                         data-step="0">
                                                         <div
-                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
                                                                 <div
                                                                         class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                 </div>
@@ -778,7 +833,7 @@
                                                 <div class="pipeline-step-m flex items-start gap-lg pb-xl"
                                                         data-step="1">
                                                         <div
-                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
                                                                 <div
                                                                         class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                 </div>
@@ -796,7 +851,7 @@
                                                 <div class="pipeline-step-m flex items-start gap-lg pb-xl"
                                                         data-step="2">
                                                         <div
-                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
                                                                 <div
                                                                         class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                 </div>
@@ -813,7 +868,7 @@
                                                 </div>
                                                 <div class="pipeline-step-m flex items-start gap-lg" data-step="3">
                                                         <div
-                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white dark:bg-surface-container-high flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
                                                                 <div
                                                                         class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
                                                                 </div>
@@ -833,86 +888,78 @@
                         </div>
 
 
-                        <!-- Try It Section Header -->
-                        <div id="try-it-section" class="w-full max-w-4xl mx-auto relative z-10 mb-2xl pt-2xl scroll-reveal">
-                                <span class="text-label-sm uppercase text-primary tracking-[0.2em] font-semibold">TRY
-                                        IT YOURSELF</span>
-                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm max-w-lg">Ready?
-                                        Upload your resume and paste a job description.</h2>
-                        </div>
-
-                        <!-- Input Area -->
-                        <div
-                                class="grid grid-cols-1 md:grid-cols-2 gap-2xl w-full mb-2xl max-w-4xl mx-auto relative z-10 dot-pattern rounded-xl p-xl md:p-2xl">
-
-                                <!-- Resume Upload Card -->
-                                <div class="flex flex-col gap-md h-full">
-                                        <div class="flex items-center gap-sm">
-                                                <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
-                                                <span
-                                                        class="text-label-sm uppercase text-on-surface-variant tracking-wider">YOUR
-                                                        RESUME</span>
+                        <!-- Try It Section (Last Section) -->
+                        <section id="try-it-section" class="w-full min-h-screen flex flex-col justify-center items-center py-12 md:py-16 relative z-10">
+                                <div class="w-full max-w-4xl mx-auto flex flex-col justify-center">
+                                        <!-- Try It Section Header -->
+                                        <div class="w-full mb-xl scroll-reveal">
+                                                <span class="text-label-sm uppercase text-primary tracking-[0.2em] font-semibold">TRY
+                                                        IT YOURSELF</span>
+                                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm max-w-lg">Ready?
+                                                        Upload your resume and paste a job description.</h2>
                                         </div>
-                                        <div class="card-lift flex-grow min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-2xl cursor-pointer bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm hover:border-primary/60 hover:bg-primary/[0.02] transition-all group"
-                                                id="drop-zone">
-                                                <div
-                                                        class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-md group-hover:bg-primary/15 group-hover:scale-110 transition-all">
-                                                        <span
-                                                                class="material-symbols-outlined text-primary text-2xl transition-transform group-hover:-translate-y-0.5">upload_file</span>
+
+                                        <!-- Input Area -->
+                                        <div
+                                                class="grid grid-cols-1 md:grid-cols-2 gap-xl md:gap-2xl w-full mb-xl dot-pattern rounded-xl p-xl md:p-2xl">
+
+                                                <!-- Resume Upload Card -->
+                                                <div class="flex flex-col gap-md h-full">
+                                                        <div class="flex items-center gap-sm">
+                                                                <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+                                                                <span
+                                                                        class="text-label-sm uppercase text-on-surface-variant tracking-wider">YOUR
+                                                                        RESUME</span>
+                                                        </div>
+                                                        <div class="card-lift flex-grow min-h-[220px] md:min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-xl md:p-2xl cursor-pointer bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm hover:border-primary/60 hover:bg-primary/[0.02] transition-all group"
+                                                                id="drop-zone">
+                                                                <div
+                                                                        class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-md group-hover:bg-primary/15 group-hover:scale-110 transition-all">
+                                                                        <span
+                                                                                class="material-symbols-outlined text-primary text-2xl transition-transform group-hover:-translate-y-0.5">upload_file</span>
+                                                                </div>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant text-center max-w-[250px]">
+                                                                        Drag and drop, or <span
+                                                                                class="text-primary font-medium underline underline-offset-2">browse files</span>.
+                                                                        PDF or DOCX.</p>
+                                                        </div>
                                                 </div>
-                                                <p
-                                                        class="font-body-sm text-on-surface-variant text-center max-w-[250px]">
-                                                        Drag and drop, or <span
-                                                                class="text-primary font-medium underline underline-offset-2">browse files</span>.
-                                                        PDF or DOCX.</p>
+
+                                                <!-- Job Description Card -->
+                                                <div class="flex flex-col gap-md h-full relative">
+                                                        <div
+                                                                class="hidden md:block absolute -left-[24px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-outline-variant to-transparent">
+                                                        </div>
+                                                        <div class="flex items-center gap-sm">
+                                                                <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
+                                                                <span
+                                                                        class="text-label-sm uppercase text-on-surface-variant tracking-wider">JOB
+                                                                        DESCRIPTION</span>
+                                                        </div>
+                                                        <div
+                                                                class="card-lift flex-grow min-h-[220px] md:min-h-[240px] flex flex-col rounded-xl bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/40 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(82,76,237,0.15)] transition-all">
+                                                                <textarea aria-label="Job description input"
+                                                                        class="w-full flex-grow border-0 bg-transparent focus:ring-0 transition-all font-body-md text-on-surface resize-none placeholder:text-on-surface-variant/50"
+                                                                        placeholder="Paste the job description here..."></textarea>
+                                                        </div>
+                                                </div>
+
+                                        </div>
+
+                                        <!-- CTA Button -->
+                                        <div class="flex justify-center w-full mt-sm">
+                                                <a href="code.html"
+                                                        class="btn-shimmer inline-flex items-center text-white rounded-lg px-10 py-4 font-label-md text-base tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                                                        Analyze Match
+                                                        <span
+                                                                class="material-symbols-outlined text-sm align-middle ml-sm">arrow_forward</span>
+                                                </a>
                                         </div>
                                 </div>
-
-                                <!-- Job Description Card -->
-                                <div class="flex flex-col gap-md h-full relative">
-                                        <div
-                                                class="hidden md:block absolute -left-[24px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-outline-variant to-transparent">
-                                        </div>
-                                        <div class="flex items-center gap-sm">
-                                                <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
-                                                <span
-                                                        class="text-label-sm uppercase text-on-surface-variant tracking-wider">JOB
-                                                        DESCRIPTION</span>
-                                        </div>
-                                        <div
-                                                class="card-lift flex-grow min-h-[240px] flex flex-col rounded-xl bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/40 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(82,76,237,0.15)] transition-all">
-                                                <textarea aria-label="Job description input"
-                                                        class="w-full flex-grow border-0 bg-transparent focus:ring-0 transition-all font-body-md text-on-surface resize-none placeholder:text-on-surface-variant/50"
-                                                        placeholder="Paste the job description here..."></textarea>
-                                        </div>
-                                </div>
-
-                        </div>
-
-                        <!-- CTA Button -->
-                        <div class="flex justify-center w-full mt-xl mb-3xl relative z-10">
-                                <a href="loading.html"
-                                        class="btn-shimmer inline-flex items-center text-white rounded-lg px-10 py-4 font-label-md text-base tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
-                                        Analyze Match
-                                        <span
-                                                class="material-symbols-outlined text-sm align-middle ml-sm">arrow_forward</span>
-                                </a>
-                        </div>
+                        </section>
 
                 </main>
-
-                <!-- Footer -->
-                <footer class="w-full py-xl mt-auto border-t border-outline-variant/40">
-                        <div class="flex justify-between items-center">
-                                <span class="font-body-sm text-on-surface-variant">© 2025 Parse</span>
-                                <div class="flex gap-lg">
-                                        <a class="font-body-sm text-on-surface-variant hover:text-primary transition-colors"
-                                                href="#">Privacy</a>
-                                        <a class="font-body-sm text-on-surface-variant hover:text-primary transition-colors"
-                                                href="#">Terms</a>
-                                </div>
-                        </div>
-                </footer>
 
         </div>
 
@@ -971,6 +1018,16 @@
                         input.click();
                 });
 
+                // --- Straight Side Scroll Progress Bar ---
+                const sideProgressBar = document.getElementById('side-progress-bar');
+
+                function updateSideProgress(progress) {
+                    const progressClamped = Math.min(1, Math.max(0, progress));
+                    if (sideProgressBar) {
+                        sideProgressBar.style.transform = `scaleY(${progressClamped})`;
+                    }
+                }
+
                 // --- Parallax Glow Orbs ---
                 const orbs = document.querySelectorAll('[data-parallax]');
 
@@ -980,17 +1037,12 @@
 
                 let ticking = false;
 
-                function updateParallax() {
-                        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                        const scrollY = window.scrollY;
-                        const progress = maxScroll > 0 ? scrollY / maxScroll : 0; // 0 to 1
-
-                        orbs.forEach((orb, i) => {
-                                const yOffset = progress * maxMoveY[i];
-                                const xOffset = progress * maxMoveX[i];
-                                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                        });
-                        ticking = false;
+                function updateParallax(progress) {
+                    orbs.forEach((orb, i) => {
+                        const yOffset = progress * maxMoveY[i];
+                        const xOffset = progress * maxMoveX[i];
+                        orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                    });
                 }
 
                 // --- Pipeline Scroll Animation ---
@@ -1020,8 +1072,6 @@
                         const totalScroll = rect.height - windowHeight;
 
                         // Calculate progress based on how far the container has scrolled up past the viewport top
-                        // If rect.top > 0, it hasn't reached the top yet (progress = 0)
-                        // If rect.top < -totalScroll, it has scrolled past the end (progress = 1)
                         let progress = (-rect.top) / totalScroll;
                         progress = Math.max(0, Math.min(1, progress)); // Clamp between 0 and 1
 
@@ -1031,7 +1081,6 @@
                         if (fillMobile) fillMobile.style.height = `${progress * 100}%`;
 
                         // Activate steps based on progress thresholds
-                        // The first dot activates immediately at 0.0, the others space out evenly
                         const thresholds = [0.0, 0.33, 0.66, 0.95];
 
                         const updateStep = (index, isActive, dots, inners, titles, descs) => {
@@ -1072,20 +1121,32 @@
                         }
                 }
 
+                function onScroll() {
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollY = window.scrollY;
+                    const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+                    updateParallax(progress);
+                    updatePipelineProgress();
+                    updateSideProgress(progress);
+                    ticking = false;
+                }
+
                 // --- Scroll Event Listener ---
                 window.addEventListener('scroll', () => {
                         if (!ticking) {
-                                requestAnimationFrame(() => {
-                                        updateParallax();
-                                        updatePipelineProgress();
-                                        ticking = false;
-                                });
+                                requestAnimationFrame(onScroll);
                                 ticking = true;
                         }
                 }, { passive: true });
 
-                // Initial check
-                updatePipelineProgress();
+                // Reset scroll to top (hero section) on initial check & page load
+                window.scrollTo(0, 0);
+                onScroll();
+                window.addEventListener('load', () => {
+                    window.scrollTo(0, 0);
+                    onScroll();
+                });
         </script>
 
 <style>
@@ -1100,60 +1161,147 @@
 .light::view-transition-new(root) { z-index: 1; }
 </style>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', function(e) {
-                const isDark = document.documentElement.classList.contains('dark');
-                
-                function toggleTheme() {
-                    if (isDark) {
-                        document.documentElement.classList.remove('dark');
-                        document.documentElement.classList.add('light');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        document.documentElement.classList.remove('light');
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
+    (function() {
+        let channel = null;
+        try {
+            if (typeof BroadcastChannel !== 'undefined') {
+                channel = new BroadcastChannel('parse_theme_sync');
+            }
+        } catch (e) {}
+
+        function updateInternalLinks(theme) {
+            try {
+                const links = document.querySelectorAll('a[href]');
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+                    if (href.endsWith('.html') || href.includes('.html?') || href.includes('.html#') || href.startsWith('index') || href.startsWith('code') || href.startsWith('stitch_loading')) {
+                        try {
+                            const [base, hash] = href.split('#');
+                            const [path, query] = base.split('?');
+                            const searchParams = new URLSearchParams(query || '');
+                            searchParams.set('theme', theme);
+                            const newHref = path + '?' + searchParams.toString() + (hash ? '#' + hash : '');
+                            link.setAttribute('href', newHref);
+                        } catch (err) {}
                     }
-                }
-
-                if (!document.startViewTransition) {
-                    toggleTheme();
-                    return;
-                }
-
-                const x = e.clientX;
-                const y = e.clientY;
-                const endRadius = Math.hypot(
-                    Math.max(x, innerWidth - x),
-                    Math.max(y, innerHeight - y)
-                );
-
-                const transition = document.startViewTransition(() => {
-                    toggleTheme();
                 });
-
-                transition.ready.then(() => {
-                    const clipPath = [
-                        `circle(0px at ${x}px ${y}px)`,
-                        `circle(${endRadius}px at ${x}px ${y}px)`
-                    ];
-
-                    document.documentElement.animate(
-                        {
-                            clipPath: isDark ? [...clipPath].reverse() : clipPath,
-                        },
-                        {
-                            duration: 500,
-                            easing: 'ease-in-out',
-                            pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)',
-                        }
-                    );
-                });
-            });
+            } catch (e) {}
         }
-    });
+
+        window.setTheme = function(theme, broadcast = true) {
+            const isDark = theme === 'dark';
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+
+            try { localStorage.setItem('theme', theme); } catch (e) {}
+            try { sessionStorage.setItem('theme', theme); } catch (e) {}
+            try { document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`; } catch (e) {}
+
+            try {
+                const url = new URL(window.location.href);
+                url.searchParams.set('theme', theme);
+                window.history.replaceState(null, '', url.toString());
+            } catch (e) {}
+
+            updateInternalLinks(theme);
+
+            if (broadcast) {
+                if (channel) {
+                    try { channel.postMessage({ type: 'THEME_CHANGE', theme: theme }); } catch (e) {}
+                }
+                try {
+                    window.postMessage({ type: 'THEME_CHANGE', theme: theme }, '*');
+                } catch (e) {}
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            updateInternalLinks(currentTheme);
+
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', function(e) {
+                    const isCurrentlyDark = document.documentElement.classList.contains('dark');
+                    const newTheme = isCurrentlyDark ? 'light' : 'dark';
+
+                    if (!document.startViewTransition) {
+                        window.setTheme(newTheme, true);
+                        return;
+                    }
+
+                    const x = e.clientX;
+                    const y = e.clientY;
+                    const endRadius = Math.hypot(
+                        Math.max(x, innerWidth - x),
+                        Math.max(y, innerHeight - y)
+                    );
+
+                    const transition = document.startViewTransition(() => {
+                        window.setTheme(newTheme, true);
+                    });
+
+                    transition.ready.then(() => {
+                        const clipPath = [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${endRadius}px at ${x}px ${y}px)`
+                        ];
+
+                        document.documentElement.animate(
+                            {
+                                clipPath: isCurrentlyDark ? [...clipPath].reverse() : clipPath,
+                            },
+                            {
+                                duration: 500,
+                                easing: 'ease-in-out',
+                                pseudoElement: isCurrentlyDark ? '::view-transition-old(root)' : '::view-transition-new(root)',
+                            }
+                        );
+                    });
+                });
+            }
+        });
+
+        if (channel) {
+            channel.onmessage = (e) => {
+                if (e.data && e.data.type === 'THEME_CHANGE' && e.data.theme) {
+                    window.setTheme(e.data.theme, false);
+                }
+            };
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'theme' && e.newValue) {
+                window.setTheme(e.newValue, false);
+            }
+        });
+
+        window.addEventListener('message', (e) => {
+            if (e.data && e.data.type === 'THEME_CHANGE' && e.data.theme) {
+                window.setTheme(e.data.theme, false);
+            }
+        });
+
+        try {
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    let hasManualSetting = false;
+                    try {
+                        hasManualSetting = !!(localStorage.getItem('theme') || sessionStorage.getItem('theme'));
+                    } catch (err) {}
+                    if (!hasManualSetting) {
+                        window.setTheme(e.matches ? 'dark' : 'light', true);
+                    }
+                });
+            }
+        } catch (e) {}
+    })();
 </script>
 
 </body>
