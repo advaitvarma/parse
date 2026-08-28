@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Parse - Analyzing...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-transition { transition: opacity 0.5s ease-in-out; }
+        @keyframes indeterminateProgressBar {
+            0% { transform: translateX(0) scaleX(0); }
+            40% { transform: translateX(0) scaleX(0.4); }
+            100% { transform: translateX(100%) scaleX(0.5); }
+        }
+    </style>
+</head>
+<body class="bg-[#FAFAFA] min-h-screen flex items-center justify-center p-4 antialiased text-[#1a1c1c]">
+    <main class="w-full max-w-sm mx-auto flex flex-col items-center justify-center">
+            
+            <!-- Lottie Animation Container -->
+            <div id="lottie-container" class="relative w-48 h-48 mb-8"></div>
+            
+            <!-- Dynamic Text -->
+            <div class="h-8 flex items-center justify-center overflow-hidden w-full">
+                <p class="text-sm font-medium fade-transition opacity-100 m-0 tracking-wide text-gray-400" id="loading-text">
+                    Parsing resume...
+                </p>
+            </div>
+            
+    </main>
+
+    <!-- Load the animation JSON as a variable to bypass local file CORS -->
+    <script src="brainData.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load Lottie using the injected brainData variable
+            lottie.loadAnimation({
+                container: document.getElementById('lottie-container'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: brainData
+            });
+
+            // Loading Text Cycle
+            const texts = [
+                'Parsing resume structure...',
+                'Extracting key skills...',
+                'Cross-referencing benchmarks...',
+                'Generating match insights...'
+            ];
+            let currentIndex = 0;
+            const textElement = document.getElementById('loading-text');
+
+            const textInterval = setInterval(() => {
+                textElement.style.opacity = '0';
+                setTimeout(() => {
+                    currentIndex++;
+                    if (currentIndex < texts.length) {
+                        textElement.textContent = texts[currentIndex];
+                        textElement.style.opacity = '1';
+                    }
+                }, 500); 
+            }, 2000); 
+
+            // Redirect to code.html after 8 seconds
+            setTimeout(() => {
+                clearInterval(textInterval);
+                window.location.href = 'code.html';
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
