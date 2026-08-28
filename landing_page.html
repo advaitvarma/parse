@@ -399,6 +399,7 @@
                                 opacity: 0;
                                 transform: translateY(30px);
                         }
+
                         to {
                                 opacity: 1;
                                 transform: translateY(0);
@@ -410,10 +411,21 @@
                         animation: reveal-up 0.7s ease-out forwards;
                 }
 
-                .reveal-delay-1 { animation-delay: 0.1s; }
-                .reveal-delay-2 { animation-delay: 0.2s; }
-                .reveal-delay-3 { animation-delay: 0.3s; }
-                .reveal-delay-4 { animation-delay: 0.4s; }
+                .reveal-delay-1 {
+                        animation-delay: 0.1s;
+                }
+
+                .reveal-delay-2 {
+                        animation-delay: 0.2s;
+                }
+
+                .reveal-delay-3 {
+                        animation-delay: 0.3s;
+                }
+
+                .reveal-delay-4 {
+                        animation-delay: 0.4s;
+                }
 
                 /* Feature card number */
                 .feature-number {
@@ -460,7 +472,7 @@
                                                 </div>
                                                 <div class="absolute inset-0 rounded-full bg-[#7B76FF]/8 blur-2xl scale-[1.5] logo-glow"
                                                         style="animation-delay: -2s;"></div>
-                                                <img src="logo.svg" alt="Parse"
+                                                <img src="assets/logo.svg" alt="Parse"
                                                         class="h-32 md:h-44 lg:h-52 w-auto relative z-10 logo-float" />
                                         </div>
                                 </div>
@@ -473,101 +485,186 @@
 
                         <!-- How Parse Works - Sticky Container -->
                         <div id="pipeline-container" class="w-full relative h-[300vh] z-10">
-                                <section class="w-full max-w-4xl mx-auto sticky top-0 h-screen flex flex-col justify-center py-3xl" id="how-it-works">
+                                <section class="w-full max-w-4xl mx-auto sticky top-0 h-screen flex flex-col justify-center py-3xl"
+                                        id="how-it-works">
                                         <div class="text-center mb-3xl">
-                                                <span class="text-label-sm uppercase text-[#524CED] tracking-[0.2em] font-semibold">THE PIPELINE</span>
-                                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm">From upload to insight.</h2>
+                                                <span
+                                                        class="text-label-sm uppercase text-[#524CED] tracking-[0.2em] font-semibold">THE
+                                                        PIPELINE</span>
+                                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm">From
+                                                        upload to insight.</h2>
                                         </div>
 
-                                <!-- Desktop pipeline -->
-                                <div class="hidden md:block relative" id="pipeline-desktop">
-                                        <!-- Background track -->
-                                        <div class="absolute top-[11px] left-[12.5%] right-[12.5%] h-[2px] bg-outline-variant/30 rounded-full"></div>
-                                        <!-- Active fill line (animated via JS) -->
-                                        <div id="pipeline-fill" class="absolute top-[11px] left-[12.5%] h-[2px] bg-[#524CED] rounded-full transition-all duration-300 ease-out" style="width: 0%;"></div>
+                                        <!-- Desktop pipeline -->
+                                        <div class="hidden md:block relative" id="pipeline-desktop">
+                                                <!-- Background track -->
+                                                <div
+                                                        class="absolute top-[11px] left-[12.5%] right-[12.5%] h-[2px] bg-outline-variant/30 rounded-full">
+                                                </div>
+                                                <!-- Active fill line (animated via JS) -->
+                                                <div id="pipeline-fill"
+                                                        class="absolute top-[11px] left-[12.5%] h-[2px] bg-[#524CED] rounded-full transition-all duration-300 ease-out"
+                                                        style="width: 0%;"></div>
 
-                                        <div class="grid grid-cols-4 gap-lg">
-                                                <div class="pipeline-step flex flex-col items-center text-center" data-step="0">
-                                                        <div class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
-                                                                <div class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
+                                                <div class="grid grid-cols-4 gap-lg">
+                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                                data-step="0">
+                                                                <div
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        <div
+                                                                                class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                        </div>
+                                                                </div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">
+                                                                        Extract</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Parses PDF & DOCX to pull raw text and
+                                                                        structural data.</p>
                                                         </div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">Extract</h3>
-                                                        <p class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">Parses PDF & DOCX to pull raw text and structural data.</p>
-                                                </div>
-                                                <div class="pipeline-step flex flex-col items-center text-center" data-step="1">
-                                                        <div class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
-                                                                <div class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
+                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                                data-step="1">
+                                                                <div
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        <div
+                                                                                class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                        </div>
+                                                                </div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">
+                                                                        Analyze</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Cross-references against job keywords to find
+                                                                        skill gaps.</p>
                                                         </div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">Analyze</h3>
-                                                        <p class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">Cross-references against job keywords to find skill gaps.</p>
-                                                </div>
-                                                <div class="pipeline-step flex flex-col items-center text-center" data-step="2">
-                                                        <div class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
-                                                                <div class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
+                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                                data-step="2">
+                                                                <div
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        <div
+                                                                                class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                        </div>
+                                                                </div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">
+                                                                        Process</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        NLP entity extraction produces a scored fit
+                                                                        assessment.</p>
                                                         </div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">Process</h3>
-                                                        <p class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">NLP entity extraction produces a scored fit assessment.</p>
-                                                </div>
-                                                <div class="pipeline-step flex flex-col items-center text-center" data-step="3">
-                                                        <div class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
-                                                                <div class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
+                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                                data-step="3">
+                                                                <div
+                                                                        class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
+                                                                        <div
+                                                                                class="dot-inner w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                        </div>
+                                                                </div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">
+                                                                        Store</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Retains results in a structured database for
+                                                                        re-analysis.</p>
                                                         </div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs transition-colors duration-300 step-title">Store</h3>
-                                                        <p class="font-body-sm text-on-surface-variant leading-relaxed step-desc opacity-0 max-h-0 overflow-hidden transition-all duration-500">Retains results in a structured database for re-analysis.</p>
                                                 </div>
                                         </div>
-                                </div>
 
-                                <!-- Mobile vertical pipeline -->
-                                <div class="md:hidden flex flex-col relative pl-xl" id="pipeline-mobile">
-                                        <div class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-outline-variant/30 rounded-full"></div>
-                                        <div id="pipeline-fill-mobile" class="absolute left-[10px] top-[11px] w-[2px] bg-[#524CED] rounded-full transition-all duration-300 ease-out" style="height: 0%;"></div>
+                                        <!-- Mobile vertical pipeline -->
+                                        <div class="md:hidden flex flex-col relative pl-xl" id="pipeline-mobile">
+                                                <div
+                                                        class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-outline-variant/30 rounded-full">
+                                                </div>
+                                                <div id="pipeline-fill-mobile"
+                                                        class="absolute left-[10px] top-[11px] w-[2px] bg-[#524CED] rounded-full transition-all duration-300 ease-out"
+                                                        style="height: 0%;"></div>
 
-                                        <div class="pipeline-step-m flex items-start gap-lg pb-xl" data-step="0">
-                                                <div class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
-                                                        <div class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
+                                                <div class="pipeline-step-m flex items-start gap-lg pb-xl"
+                                                        data-step="0">
+                                                        <div
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                <div
+                                                                        class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                </div>
+                                                        </div>
+                                                        <div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">
+                                                                        Extract</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Parses PDF & DOCX to pull raw text and
+                                                                        structural data.</p>
+                                                        </div>
                                                 </div>
-                                                <div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">Extract</h3>
-                                                        <p class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">Parses PDF & DOCX to pull raw text and structural data.</p>
+                                                <div class="pipeline-step-m flex items-start gap-lg pb-xl"
+                                                        data-step="1">
+                                                        <div
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                <div
+                                                                        class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                </div>
+                                                        </div>
+                                                        <div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">
+                                                                        Analyze</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Cross-references against job keywords to find
+                                                                        skill gaps.</p>
+                                                        </div>
+                                                </div>
+                                                <div class="pipeline-step-m flex items-start gap-lg pb-xl"
+                                                        data-step="2">
+                                                        <div
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                <div
+                                                                        class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                </div>
+                                                        </div>
+                                                        <div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">
+                                                                        Process</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        NLP entity extraction produces a scored fit
+                                                                        assessment.</p>
+                                                        </div>
+                                                </div>
+                                                <div class="pipeline-step-m flex items-start gap-lg" data-step="3">
+                                                        <div
+                                                                class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
+                                                                <div
+                                                                        class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300">
+                                                                </div>
+                                                        </div>
+                                                        <div>
+                                                                <h3
+                                                                        class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">
+                                                                        Store</h3>
+                                                                <p
+                                                                        class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">
+                                                                        Retains results in a structured database for
+                                                                        re-analysis.</p>
+                                                        </div>
                                                 </div>
                                         </div>
-                                        <div class="pipeline-step-m flex items-start gap-lg pb-xl" data-step="1">
-                                                <div class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
-                                                        <div class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
-                                                </div>
-                                                <div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">Analyze</h3>
-                                                        <p class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">Cross-references against job keywords to find skill gaps.</p>
-                                                </div>
-                                        </div>
-                                        <div class="pipeline-step-m flex items-start gap-lg pb-xl" data-step="2">
-                                                <div class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
-                                                        <div class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
-                                                </div>
-                                                <div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">Process</h3>
-                                                        <p class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">NLP entity extraction produces a scored fit assessment.</p>
-                                                </div>
-                                        </div>
-                                        <div class="pipeline-step-m flex items-start gap-lg" data-step="3">
-                                                <div class="pipeline-dot-m w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center shrink-0 relative z-10 -ml-xl transition-all duration-300">
-                                                        <div class="dot-inner-m w-[8px] h-[8px] rounded-full bg-outline-variant/40 transition-all duration-300"></div>
-                                                </div>
-                                                <div>
-                                                        <h3 class="font-label-md text-on-surface-variant font-semibold mb-xs step-title-m transition-colors duration-300">Store</h3>
-                                                        <p class="font-body-sm text-on-surface-variant step-desc-m opacity-0 max-h-0 overflow-hidden transition-all duration-500">Retains results in a structured database for re-analysis.</p>
-                                                </div>
-                                        </div>
-                                </div>
-                        </section>
+                                </section>
                         </div>
 
 
                         <!-- Try It Section Header -->
                         <div class="w-full max-w-4xl mx-auto relative z-10 mb-2xl pt-xl">
-                                <span class="text-label-sm uppercase text-[#524CED] tracking-[0.2em] font-semibold">TRY IT YOURSELF</span>
-                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm max-w-lg">Ready? Upload your resume and paste a job description.</h2>
+                                <span class="text-label-sm uppercase text-[#524CED] tracking-[0.2em] font-semibold">TRY
+                                        IT YOURSELF</span>
+                                <h2 class="font-headline-lg text-headline-lg text-on-surface mt-sm max-w-lg">Ready?
+                                        Upload your resume and paste a job description.</h2>
                         </div>
 
                         <!-- Input Area -->
@@ -721,7 +818,7 @@
                 const pipelineContainer = document.getElementById('pipeline-container');
                 const fillDesktop = document.getElementById('pipeline-fill');
                 const fillMobile = document.getElementById('pipeline-fill-mobile');
-                
+
                 const desktopSteps = document.querySelectorAll('#pipeline-desktop .pipeline-step');
                 const desktopDots = document.querySelectorAll('#pipeline-desktop .pipeline-dot');
                 const desktopDotInners = document.querySelectorAll('#pipeline-desktop .dot-inner');
@@ -739,10 +836,10 @@
 
                         const rect = pipelineContainer.getBoundingClientRect();
                         const windowHeight = window.innerHeight;
-                        
+
                         // Total scrollable distance within the sticky container
                         const totalScroll = rect.height - windowHeight;
-                        
+
                         // Calculate progress based on how far the container has scrolled up past the viewport top
                         // If rect.top > 0, it hasn't reached the top yet (progress = 0)
                         // If rect.top < -totalScroll, it has scrolled past the end (progress = 1)
@@ -762,20 +859,20 @@
                                 if (isActive) {
                                         dots[index].style.borderColor = '#524CED';
                                         inners[index].style.backgroundColor = '#524CED';
-                                        
+
                                         titles[index].classList.remove('text-on-surface-variant');
                                         titles[index].classList.add('text-on-surface');
-                                        
+
                                         descs[index].classList.remove('opacity-0');
                                         descs[index].classList.add('opacity-100', 'mt-xs');
                                         descs[index].style.maxHeight = '100px';
                                 } else {
                                         dots[index].style.borderColor = ''; // Reverts to CSS class
                                         inners[index].style.backgroundColor = '';
-                                        
+
                                         titles[index].classList.add('text-on-surface-variant');
                                         titles[index].classList.remove('text-on-surface');
-                                        
+
                                         descs[index].classList.add('opacity-0');
                                         descs[index].classList.remove('opacity-100', 'mt-xs');
                                         descs[index].style.maxHeight = '0px';
@@ -784,7 +881,7 @@
 
                         for (let i = 0; i < 4; i++) {
                                 const isActive = progress >= thresholds[i];
-                                
+
                                 // Update desktop
                                 if (desktopSteps.length) {
                                         updateStep(i, isActive, desktopDots, desktopDotInners, desktopTitles, desktopDescs);
@@ -807,7 +904,7 @@
                                 ticking = true;
                         }
                 }, { passive: true });
-                
+
                 // Initial check
                 updatePipelineProgress();
         </script>
