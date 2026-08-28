@@ -282,9 +282,10 @@
                 .orb {
                         position: fixed;
                         border-radius: 50%;
-                        pointer-events: none;
+                        filter: blur(80px);
+                        opacity: 1;
                         z-index: 0;
-                        will-change: transform;
+                        pointer-events: none;
                         transition: transform 0.1s linear;
                 }
 
@@ -293,8 +294,7 @@
                         height: 800px;
                         top: -15%;
                         left: 10%;
-                        background: rgba(82, 76, 237, 0.08);
-                        filter: blur(120px);
+                        background: rgba(82, 76, 237, 0.15);
                 }
 
                 .orb-2 {
@@ -302,8 +302,7 @@
                         height: 700px;
                         top: 40%;
                         right: -10%;
-                        background: rgba(165, 163, 233, 0.10);
-                        filter: blur(100px);
+                        background: rgba(165, 163, 233, 0.20);
                 }
 
                 .orb-3 {
@@ -311,8 +310,7 @@
                         height: 650px;
                         bottom: -10%;
                         left: -5%;
-                        background: rgba(82, 76, 237, 0.07);
-                        filter: blur(130px);
+                        background: rgba(82, 76, 237, 0.12);
                 }
 
                 .orb-4 {
@@ -320,8 +318,7 @@
                         height: 550px;
                         top: 20%;
                         left: 45%;
-                        background: rgba(123, 118, 255, 0.09);
-                        filter: blur(110px);
+                        background: rgba(123, 118, 255, 0.18);
                 }
 
                 /* Logo glow pulse */
@@ -329,7 +326,7 @@
 
                         0%,
                         100% {
-                                opacity: 0.4;
+                                opacity: 1;
                                 transform: scale(1);
                         }
 
@@ -342,6 +339,28 @@
                 .logo-glow {
                         animation: glow-pulse 4s ease-in-out infinite;
                 }
+
+                /* Entrance Animations */
+                @keyframes fade-up {
+                        from {
+                                opacity: 0;
+                                transform: translateY(20px);
+                        }
+                        to {
+                                opacity: 1;
+                                transform: translateY(0);
+                        }
+                }
+
+                .animate-fade-up {
+                        opacity: 0;
+                        animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+
+                .delay-100 { animation-delay: 0.1s; }
+                .delay-200 { animation-delay: 0.2s; }
+                .delay-300 { animation-delay: 0.3s; }
+                .delay-400 { animation-delay: 0.4s; }
 
                 /* Floating animation for the logo */
                 @keyframes float {
@@ -463,9 +482,10 @@
                 <main class="flex-grow flex flex-col items-center w-full relative">
 
                         <!-- Hero Section -->
-                        <div class="text-center mb-3xl max-w-2xl mx-auto w-full relative z-10 pt-16 md:pt-24">
+                        <div
+                                class="text-center w-full relative z-10 min-h-[90vh] flex flex-col justify-center items-center pb-3xl">
                                 <!-- Large centered logo mark -->
-                                <div class="flex justify-center mb-xl">
+                                <div class="flex justify-center mb-xl w-full animate-fade-up">
                                         <div class="relative">
                                                 <div
                                                         class="absolute inset-0 rounded-full bg-[#524CED]/10 blur-3xl scale-[2] logo-glow">
@@ -476,15 +496,28 @@
                                                         class="h-32 md:h-44 lg:h-52 w-auto relative z-10 logo-float" />
                                         </div>
                                 </div>
-                                <h1 class="font-display text-display text-on-surface mb-md leading-tight">Match your
+                                <h1
+                                        class="font-display text-display text-on-surface mb-md leading-tight max-w-2xl mx-auto animate-fade-up delay-200">
+                                        Match your
                                         resume<br />to the job.</h1>
-                                <p class="font-body-lg text-on-surface-variant max-w-md mx-auto">Parse analyzes the fit,
+                                <p class="font-body-lg text-on-surface-variant max-w-md mx-auto animate-fade-up delay-300">Parse analyzes the fit,
                                         highlights missing skills, and suggests improvements in seconds.</p>
+
+                                <!-- Scroll Indicator -->
+                                <div
+                                        class="absolute inset-x-0 bottom-4 flex flex-col items-center justify-center animate-fade-up delay-400">
+                                        <div class="flex flex-col items-center animate-bounce opacity-60">
+                                                <span
+                                                        class="text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface-variant mb-xs ml-[0.2em]">Scroll</span>
+                                                <span
+                                                        class="material-symbols-outlined text-on-surface-variant text-lg">arrow_downward</span>
+                                        </div>
+                                </div>
                         </div>
 
 
                         <!-- How Parse Works - Sticky Container -->
-                        <div id="pipeline-container" class="w-full relative h-[300vh] z-10">
+                        <div id="pipeline-container" class="w-full relative h-[175vh] z-10">
                                 <section class="w-full max-w-4xl mx-auto sticky top-0 h-screen flex flex-col justify-center py-3xl"
                                         id="how-it-works">
                                         <div class="text-center mb-3xl">
@@ -499,15 +532,15 @@
                                         <div class="hidden md:block relative" id="pipeline-desktop">
                                                 <!-- Background track -->
                                                 <div
-                                                        class="absolute top-[11px] left-[12.5%] right-[12.5%] h-[2px] bg-outline-variant/30 rounded-full">
+                                                        class="absolute top-[11px] left-[12.5%] w-[75%] h-[2px] bg-outline-variant/30 rounded-full">
                                                 </div>
                                                 <!-- Active fill line (animated via JS) -->
                                                 <div id="pipeline-fill"
                                                         class="absolute top-[11px] left-[12.5%] h-[2px] bg-[#524CED] rounded-full transition-all duration-300 ease-out"
                                                         style="width: 0%;"></div>
 
-                                                <div class="grid grid-cols-4 gap-lg">
-                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                <div class="grid grid-cols-4">
+                                                        <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="0">
                                                                 <div
                                                                         class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
@@ -523,7 +556,7 @@
                                                                         Parses PDF & DOCX to pull raw text and
                                                                         structural data.</p>
                                                         </div>
-                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                        <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="1">
                                                                 <div
                                                                         class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
@@ -539,7 +572,7 @@
                                                                         Cross-references against job keywords to find
                                                                         skill gaps.</p>
                                                         </div>
-                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                        <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="2">
                                                                 <div
                                                                         class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
@@ -555,7 +588,7 @@
                                                                         NLP entity extraction produces a scored fit
                                                                         assessment.</p>
                                                         </div>
-                                                        <div class="pipeline-step flex flex-col items-center text-center"
+                                                        <div class="pipeline-step flex flex-col items-center text-center px-sm"
                                                                 data-step="3">
                                                                 <div
                                                                         class="pipeline-dot w-[22px] h-[22px] rounded-full border-2 border-outline-variant/40 bg-white flex items-center justify-center mb-lg relative z-10 transition-all duration-300">
@@ -799,16 +832,21 @@
 
                 // --- Parallax Glow Orbs ---
                 const orbs = document.querySelectorAll('[data-parallax]');
-                // Much larger speeds so parallax is clearly visible
-                const speeds = [-0.35, 0.25, -0.45, 0.30];
-                const horizontalDrifts = [0.15, -0.20, 0.10, -0.18];
+
+                // Max travel distance in pixels for each orb from top of page to bottom of page
+                const maxMoveY = [-300, 250, -400, 200];
+                const maxMoveX = [150, -200, 100, -150];
+
                 let ticking = false;
 
                 function updateParallax() {
+                        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                         const scrollY = window.scrollY;
+                        const progress = maxScroll > 0 ? scrollY / maxScroll : 0; // 0 to 1
+
                         orbs.forEach((orb, i) => {
-                                const yOffset = scrollY * speeds[i];
-                                const xOffset = scrollY * horizontalDrifts[i];
+                                const yOffset = progress * maxMoveY[i];
+                                const xOffset = progress * maxMoveX[i];
                                 orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
                         });
                         ticking = false;
@@ -846,10 +884,10 @@
                         let progress = (-rect.top) / totalScroll;
                         progress = Math.max(0, Math.min(1, progress)); // Clamp between 0 and 1
 
-                        // Update fill lines (0% to 100%)
-                        const percentage = progress * 100;
-                        if (fillDesktop) fillDesktop.style.width = `${percentage}%`;
-                        if (fillMobile) fillMobile.style.height = `${percentage}%`;
+                        // Update fill lines
+                        // Desktop spans from 12.5% to 87.5% (total width 75%)
+                        if (fillDesktop) fillDesktop.style.width = `${progress * 75}%`;
+                        if (fillMobile) fillMobile.style.height = `${progress * 100}%`;
 
                         // Activate steps based on progress thresholds
                         // The first dot activates immediately at 0.0, the others space out evenly
