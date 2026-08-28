@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Parse - Analysis Results</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -14,9 +14,10 @@
             extend: {
               colors: {
                 "tertiary-fixed": "#ffdbcc",
-                "on-background": "#141517",
-                "primary": "#3525cd",
-                "on-surface-variant": "#575e70",
+                "on-background": "#1a1c1c",
+                "primary": "#524CED",
+                "primary-dark": "#3525cd",
+                "on-surface-variant": "#464555",
                 "on-error": "#ffffff",
                 "on-tertiary": "#ffffff",
                 "primary-container": "#4f46e5",
@@ -29,8 +30,8 @@
                 "tertiary-container": "#a44100",
                 "on-secondary": "#ffffff",
                 "on-tertiary-fixed": "#351000",
-                "surface-tint": "#4d44e3",
-                "surface-bright": "#fcfcfd",
+                "surface-tint": "#524CED",
+                "surface-bright": "#f9f9f9",
                 "inverse-primary": "#c3c0ff",
                 "on-tertiary-container": "#ffd2be",
                 "surface": "#f9f9f9",
@@ -53,12 +54,12 @@
                 "surface-container-lowest": "#ffffff",
                 "secondary-fixed-dim": "#c0c6db",
                 "tertiary-fixed-dim": "#ffb695",
-                "on-surface": "#141517",
+                "on-surface": "#1a1c1c",
                 "on-primary-fixed-variant": "#3323cc",
                 "tertiary": "#7e3000",
                 "on-secondary-fixed-variant": "#404758",
                 "secondary-container": "#d9dff5",
-                "background": "#ffffff",
+                "background": "#FAFAFA",
                 "on-secondary-container": "#5c6274"
               },
               fontFamily: {
@@ -78,29 +79,75 @@
         .hairline-r { border-right: 1px solid rgba(0, 0, 0, 0.06); }
         .hairline-l { border-left: 1px solid rgba(0, 0, 0, 0.06); }
 
-        /* Subtle Luxury Gradient Background */
-        .gradient-canvas {
-            background-color: #fafbfc;
-            background-image: 
-                radial-gradient(ellipse 90% 55% at 50% -15%, rgba(53, 37, 205, 0.06) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 95% 5%, rgba(255, 182, 149, 0.045) 0%, transparent 60%),
-                radial-gradient(ellipse 70% 50% at 5% 85%, rgba(79, 70, 229, 0.035) 0%, transparent 60%);
-            background-attachment: fixed;
+        /* Floating background orbs matching index */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 1;
+            z-index: 0;
+            pointer-events: none;
+            transition: transform 0.1s linear;
+        }
+
+        .orb-1 {
+            width: 700px;
+            height: 700px;
+            top: -15%;
+            left: 10%;
+            background: rgba(82, 76, 237, 0.09);
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            top: 40%;
+            right: -10%;
+            background: rgba(165, 163, 233, 0.12);
+        }
+
+        .orb-3 {
+            width: 550px;
+            height: 550px;
+            bottom: -10%;
+            left: -5%;
+            background: rgba(82, 76, 237, 0.08);
+        }
+
+        /* Subtle shimmer on primary CTA */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .btn-shimmer {
+            background-size: 200% 100%;
+            background-image: linear-gradient(105deg, #524CED 0%, #524CED 40%, #7B76FF 50%, #524CED 60%, #524CED 100%);
+            animation: shimmer 4s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="gradient-canvas text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white">
+<body class="bg-[#FAFAFA] text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white relative overflow-x-hidden">
 
-<!-- Top Navigation (Clean Minimalist) -->
-<nav class="hairline-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
+<!-- Parallax ambient glow orbs matching index -->
+<div class="orb orb-1" data-parallax></div>
+<div class="orb orb-2" data-parallax></div>
+<div class="orb orb-3" data-parallax></div>
+
+<!-- Top Navigation -->
+<nav class="hairline-b sticky top-0 bg-[#FAFAFA]/80 backdrop-blur-md z-50">
     <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-14 sm:h-16 flex items-center justify-between">
-        <a href="#" class="inline-flex items-center cursor-pointer transition-opacity hover:opacity-80">
-            <img alt="Parse" class="h-6 w-auto object-contain" src="assets/logo-transparent.png"/>
+        <a href="index.html" class="inline-flex items-center cursor-pointer transition-opacity hover:opacity-80">
+            <img alt="Parse" class="h-6 sm:h-7 w-auto object-contain" src="assets/logo.svg"/>
         </a>
 
         <div>
-            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-primary transition-colors cursor-pointer py-1.5 px-2.5 rounded-md hover:bg-black/[0.03]">
-                <span class="material-symbols-outlined text-[15px]">refresh</span>
+            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-[#524CED] transition-colors cursor-pointer py-1.5 px-3 rounded-md hover:bg-black/[0.03]">
+                <span class="material-symbols-outlined text-[16px]">refresh</span>
                 Start Over
             </a>
         </div>
@@ -108,7 +155,7 @@
 </nav>
 
 <!-- Main Wide Content Area (max-w-7xl with fluid responsiveness) -->
-<main class="flex-grow w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 md:py-14 space-y-16">
+<main class="flex-grow w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 md:py-14 space-y-16 relative z-10">
 
     <!-- Top Section: 2-Column Wide Panoramic Hero -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
@@ -116,10 +163,10 @@
         <!-- Left: Fit Score & Summary (7 cols) -->
         <div class="lg:col-span-7 space-y-6">
             <div>
-                <p class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary mb-2">
+                <p class="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#524CED] mb-2">
                     Executive Summary
                 </p>
-                <h1 class="text-2xl md:text-3xl font-normal tracking-tight text-on-background">
+                <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-on-background">
                     Analysis Results
                 </h1>
             </div>
@@ -132,8 +179,8 @@
                 
                 <div class="space-y-1 border-l border-black/5 pl-5">
                     <div class="flex items-center gap-2">
-                        <span class="text-xl md:text-2xl font-normal text-primary">→ 94 pts</span>
-                        <span class="text-[11px] font-medium tracking-wider uppercase text-primary px-2 py-0.5 rounded bg-primary-fixed/40">Strong Fit</span>
+                        <span class="text-xl md:text-2xl font-medium text-[#524CED]">→ 94 pts</span>
+                        <span class="text-[11px] font-semibold tracking-wider uppercase text-[#524CED] px-2 py-0.5 rounded bg-[#524CED]/10 border border-[#524CED]/20">Strong Fit</span>
                     </div>
                     <p class="text-xs text-secondary tracking-wide">
                         Projected score after closing key skill gaps
@@ -147,13 +194,13 @@
 
             <!-- Minimalist Projection Line -->
             <div class="pt-2 max-w-2xl space-y-2">
-                <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden relative">
-                    <div class="h-full bg-primary/20 rounded-full absolute top-0 left-0" style="width: 94%;"></div>
-                    <div class="h-full bg-primary rounded-full absolute top-0 left-0" style="width: 78%;"></div>
+                <div class="h-1.5 w-full bg-slate-200/70 rounded-full overflow-hidden relative">
+                    <div class="h-full bg-[#A5A3E9]/60 rounded-full absolute top-0 left-0" style="width: 94%;"></div>
+                    <div class="h-full bg-[#524CED] rounded-full absolute top-0 left-0" style="width: 78%;"></div>
                 </div>
                 <div class="flex justify-between text-[11px] text-secondary">
                     <span>Baseline Score (78 / 100)</span>
-                    <span class="text-primary font-medium">Target Score (94 / 100)</span>
+                    <span class="text-[#524CED] font-medium">Target Score (94 / 100)</span>
                 </div>
             </div>
         </div>
@@ -161,7 +208,7 @@
         <!-- Right: Component Analysis (5 cols) -->
         <div class="lg:col-span-5 lg:border-l border-black/5 lg:pl-10 space-y-6 pt-2 lg:pt-0">
             <div class="flex justify-between items-center">
-                <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#524CED]">
                     Component Breakdown
                 </h2>
                 <span class="text-[11px] text-secondary/60">3 Pillars</span>
@@ -174,8 +221,8 @@
                         <span class="text-on-background">Technical Skills</span>
                         <span class="text-secondary font-medium">85 / 100</span>
                     </div>
-                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full" style="width: 85%;"></div>
+                    <div class="h-1.5 w-full bg-slate-200/70 rounded-full overflow-hidden">
+                        <div class="h-full bg-[#524CED] rounded-full" style="width: 85%;"></div>
                     </div>
                 </div>
 
@@ -185,8 +232,8 @@
                         <span class="text-on-background">Experience Match</span>
                         <span class="text-secondary font-medium">70 / 100</span>
                     </div>
-                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full" style="width: 70%;"></div>
+                    <div class="h-1.5 w-full bg-slate-200/70 rounded-full overflow-hidden">
+                        <div class="h-full bg-[#524CED] rounded-full" style="width: 70%;"></div>
                     </div>
                 </div>
 
@@ -196,8 +243,8 @@
                         <span class="text-on-background">Culture Fit</span>
                         <span class="text-secondary font-medium">92 / 100</span>
                     </div>
-                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full" style="width: 92%;"></div>
+                    <div class="h-1.5 w-full bg-slate-200/70 rounded-full overflow-hidden">
+                        <div class="h-full bg-[#524CED] rounded-full" style="width: 92%;"></div>
                     </div>
                 </div>
             </div>
@@ -209,7 +256,7 @@
     <section class="hairline-t pt-10">
         <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8">
             <div>
-                <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#524CED]">
                     Keyword &amp; Skill Coverage
                 </h2>
                 <p class="text-xs text-secondary/80 mt-1">Cross-referenced against role requirements &amp; tech stack index</p>
@@ -218,7 +265,7 @@
             <!-- Minimalist ratio meter -->
             <div class="flex items-center gap-3 text-[11px] text-secondary">
                 <span class="inline-flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-primary"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#524CED]"></span>
                     4 Matched
                 </span>
                 <span class="text-black/20">/</span>
@@ -241,7 +288,7 @@
                     <!-- Item 1 -->
                     <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
                         <div class="flex items-center gap-3">
-                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0"></span>
                             <div>
                                 <span class="text-sm font-normal text-on-background">React.js</span>
                                 <span class="block text-[11px] text-secondary/70">Frontend Architecture</span>
@@ -249,14 +296,14 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] font-normal text-secondary">Core Match</span>
-                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                            <span class="material-symbols-outlined text-[15px] text-[#524CED]">check</span>
                         </div>
                     </div>
 
                     <!-- Item 2 -->
                     <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
                         <div class="flex items-center gap-3">
-                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0"></span>
                             <div>
                                 <span class="text-sm font-normal text-on-background">TypeScript</span>
                                 <span class="block text-[11px] text-secondary/70">Type Safety &amp; Scaling</span>
@@ -264,14 +311,14 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] font-normal text-secondary">Core Match</span>
-                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                            <span class="material-symbols-outlined text-[15px] text-[#524CED]">check</span>
                         </div>
                     </div>
 
                     <!-- Item 3 -->
                     <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
                         <div class="flex items-center gap-3">
-                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0"></span>
                             <div>
                                 <span class="text-sm font-normal text-on-background">Node.js</span>
                                 <span class="block text-[11px] text-secondary/70">Backend Services</span>
@@ -279,14 +326,14 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] font-normal text-secondary">Direct Match</span>
-                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                            <span class="material-symbols-outlined text-[15px] text-[#524CED]">check</span>
                         </div>
                     </div>
 
                     <!-- Item 4 -->
                     <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
                         <div class="flex items-center gap-3">
-                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0"></span>
                             <div>
                                 <span class="text-sm font-normal text-on-background">GraphQL</span>
                                 <span class="block text-[11px] text-secondary/70">API &amp; Query Layer</span>
@@ -294,7 +341,7 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] font-normal text-secondary">Direct Match</span>
-                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                            <span class="material-symbols-outlined text-[15px] text-[#524CED]">check</span>
                         </div>
                     </div>
                 </div>
@@ -363,7 +410,7 @@
     <!-- Roadmap Section: Clean 3-Column Wide Grid -->
     <section class="hairline-t pt-10">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+            <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#524CED]">
                 Recommended Roadmap
             </h2>
             <span class="text-[11px] text-secondary/60">Preparation Steps</span>
@@ -373,7 +420,7 @@
             <!-- Step 1 -->
             <div class="space-y-2 group">
                 <div class="flex items-baseline gap-3">
-                    <span class="text-sm font-light text-primary/70">01</span>
+                    <span class="text-sm font-light text-[#524CED]">01</span>
                     <h3 class="text-sm font-medium text-on-background">
                         Master Container Orchestration
                     </h3>
@@ -386,7 +433,7 @@
             <!-- Step 2 -->
             <div class="space-y-2 group">
                 <div class="flex items-baseline gap-3">
-                    <span class="text-sm font-light text-primary/70">02</span>
+                    <span class="text-sm font-light text-[#524CED]">02</span>
                     <h3 class="text-sm font-medium text-on-background">
                         Expand Backend Languages
                     </h3>
@@ -399,7 +446,7 @@
             <!-- Step 3 -->
             <div class="space-y-2 group">
                 <div class="flex items-baseline gap-3">
-                    <span class="text-sm font-light text-primary/70">03</span>
+                    <span class="text-sm font-light text-[#524CED]">03</span>
                     <h3 class="text-sm font-medium text-on-background">
                         Highlight System Design
                     </h3>
@@ -414,7 +461,7 @@
     <!-- Market Benchmarks: Wide 3 Columns -->
     <section class="hairline-t pt-10">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+            <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#524CED]">
                 Similar Roles &amp; Benchmarks
             </h2>
             <span class="text-[11px] text-secondary/60">Market Index</span>
@@ -424,8 +471,8 @@
             <!-- Role 1 -->
             <div class="md:hairline-r md:pr-8 group cursor-pointer">
                 <div class="flex justify-between items-baseline mb-1">
-                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Vercel</span>
-                    <span class="text-xs font-normal text-primary">82 / 100 Score</span>
+                    <span class="text-sm font-medium text-on-background group-hover:text-[#524CED] transition-colors">Vercel</span>
+                    <span class="text-xs font-normal text-[#524CED]">82 / 100 Score</span>
                 </div>
                 <p class="text-xs text-secondary">Senior Frontend Engineer</p>
             </div>
@@ -433,8 +480,8 @@
             <!-- Role 2 -->
             <div class="md:hairline-r md:px-8 hairline-t md:border-t-0 pt-6 md:pt-0 group cursor-pointer">
                 <div class="flex justify-between items-baseline mb-1">
-                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Linear</span>
-                    <span class="text-xs font-normal text-primary">79 / 100 Score</span>
+                    <span class="text-sm font-medium text-on-background group-hover:text-[#524CED] transition-colors">Linear</span>
+                    <span class="text-xs font-normal text-[#524CED]">79 / 100 Score</span>
                 </div>
                 <p class="text-xs text-secondary">Product Engineer</p>
             </div>
@@ -442,8 +489,8 @@
             <!-- Role 3 -->
             <div class="md:pl-8 hairline-t md:border-t-0 pt-6 md:pt-0 group cursor-pointer">
                 <div class="flex justify-between items-baseline mb-1">
-                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Stripe</span>
-                    <span class="text-xs font-normal text-primary">75 / 100 Score</span>
+                    <span class="text-sm font-medium text-on-background group-hover:text-[#524CED] transition-colors">Stripe</span>
+                    <span class="text-xs font-normal text-[#524CED]">75 / 100 Score</span>
                 </div>
                 <p class="text-xs text-secondary">Fullstack Developer</p>
             </div>
@@ -457,8 +504,9 @@
         </p>
         
         <div class="flex items-center gap-3 w-full sm:w-auto">
-            <a href="index.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 text-xs font-medium text-white bg-primary hover:bg-primary-container rounded transition-colors cursor-pointer">
+            <a href="index.html" class="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 text-xs font-medium text-white rounded-lg shadow-md shadow-[#524CED]/20 hover:shadow-lg hover:shadow-[#524CED]/30 hover:scale-[1.01] transition-all cursor-pointer">
                 Analyze Another
+                <span class="material-symbols-outlined text-[15px] ml-1">arrow_forward</span>
             </a>
         </div>
     </section>
@@ -466,20 +514,53 @@
 </main>
 
 <!-- Minimal Footer -->
-<footer class="hairline-t mt-auto">
+<footer class="hairline-t mt-auto relative z-10">
     <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-secondary">
         <div class="flex items-center gap-2.5">
-            <img alt="Parse" class="h-4 w-auto object-contain opacity-75" src="assets/logo-transparent.png"/>
+            <img alt="Parse" class="h-4 w-auto object-contain" src="assets/logo.svg"/>
             <span class="opacity-40">•</span>
-            <span>© 2024 Parse. All rights reserved.</span>
+            <span>© 2025 Parse. All rights reserved.</span>
         </div>
         <div class="flex gap-6">
-            <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-            <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-            <a class="hover:text-primary transition-colors" href="#">Contact</a>
+            <a class="hover:text-[#524CED] transition-colors" href="#">Privacy Policy</a>
+            <a class="hover:text-[#524CED] transition-colors" href="#">Terms of Service</a>
+            <a class="hover:text-[#524CED] transition-colors" href="#">Contact</a>
         </div>
     </div>
 </footer>
+
+<!-- Parallax Glow Orbs JS -->
+<script>
+    const orbs = document.querySelectorAll('[data-parallax]');
+    const maxMoveY = [-200, 180, -250];
+    const maxMoveX = [100, -120, 80];
+    let ticking = false;
+
+    function updateParallax() {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollY = window.scrollY;
+        const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+        orbs.forEach((orb, i) => {
+            const yOffset = progress * maxMoveY[i];
+            const xOffset = progress * maxMoveX[i];
+            orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+        });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateParallax();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    updateParallax();
+</script>
 
 </body>
 </html>
