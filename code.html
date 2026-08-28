@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Parse - Analysis Results</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "tertiary-fixed": "#ffdbcc",
+                "on-background": "#141517",
+                "primary": "#3525cd",
+                "on-surface-variant": "#575e70",
+                "on-error": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "primary-container": "#4f46e5",
+                "on-secondary-fixed": "#141b2b",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed-variant": "#7b2f00",
+                "secondary-fixed": "#dce2f7",
+                "surface-container-highest": "#e2e2e2",
+                "inverse-on-surface": "#f0f1f1",
+                "tertiary-container": "#a44100",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed": "#351000",
+                "surface-tint": "#4d44e3",
+                "surface-bright": "#fcfcfd",
+                "inverse-primary": "#c3c0ff",
+                "on-tertiary-container": "#ffd2be",
+                "surface": "#f9f9f9",
+                "on-primary-fixed": "#0f0069",
+                "outline-variant": "#c7c4d8",
+                "outline": "#777587",
+                "primary-fixed": "#e2dfff",
+                "error": "#ba1a1a",
+                "on-primary-container": "#dad7ff",
+                "primary-fixed-dim": "#c3c0ff",
+                "surface-container": "#eeeeee",
+                "on-primary": "#ffffff",
+                "surface-container-low": "#f3f3f3",
+                "inverse-surface": "#2f3131",
+                "surface-dim": "#dadada",
+                "surface-container-high": "#e8e8e8",
+                "secondary": "#575e70",
+                "surface-variant": "#e2e2e2",
+                "on-error-container": "#93000a",
+                "surface-container-lowest": "#ffffff",
+                "secondary-fixed-dim": "#c0c6db",
+                "tertiary-fixed-dim": "#ffb695",
+                "on-surface": "#141517",
+                "on-primary-fixed-variant": "#3323cc",
+                "tertiary": "#7e3000",
+                "on-secondary-fixed-variant": "#404758",
+                "secondary-container": "#d9dff5",
+                "background": "#ffffff",
+                "on-secondary-container": "#5c6274"
+              },
+              fontFamily: {
+                "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+            vertical-align: middle;
+        }
+        .hairline-b { border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+        .hairline-t { border-top: 1px solid rgba(0, 0, 0, 0.06); }
+        .hairline-r { border-right: 1px solid rgba(0, 0, 0, 0.06); }
+        .hairline-l { border-left: 1px solid rgba(0, 0, 0, 0.06); }
+
+        /* Subtle Luxury Gradient Background */
+        .gradient-canvas {
+            background-color: #fafbfc;
+            background-image: 
+                radial-gradient(ellipse 90% 55% at 50% -15%, rgba(53, 37, 205, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 95% 5%, rgba(255, 182, 149, 0.045) 0%, transparent 60%),
+                radial-gradient(ellipse 70% 50% at 5% 85%, rgba(79, 70, 229, 0.035) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="gradient-canvas text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white">
+
+<!-- Top Navigation (Clean Minimalist) -->
+<nav class="hairline-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
+    <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 h-14 sm:h-16 flex items-center justify-between">
+        <a href="#" class="inline-flex items-center cursor-pointer transition-opacity hover:opacity-80">
+            <img alt="Parse" class="h-6 w-auto object-contain" src="./logo-transparent.png"/>
+        </a>
+
+        <div>
+            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-primary transition-colors cursor-pointer py-1.5 px-2.5 rounded-md hover:bg-black/[0.03]">
+                <span class="material-symbols-outlined text-[15px]">refresh</span>
+                Start Over
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Wide Content Area (max-w-7xl with fluid responsiveness) -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-10 md:py-14 space-y-16">
+
+    <!-- Top Section: 2-Column Wide Panoramic Hero -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        
+        <!-- Left: Fit Score & Summary (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+            <div>
+                <p class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary mb-2">
+                    Executive Summary
+                </p>
+                <h1 class="text-2xl md:text-3xl font-normal tracking-tight text-on-background">
+                    Analysis Results
+                </h1>
+            </div>
+
+            <div class="flex items-baseline gap-6 pt-2">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-7xl md:text-8xl font-light tracking-tight text-on-background leading-none">78</span>
+                    <span class="text-xs md:text-sm font-medium uppercase tracking-widest text-secondary/60">/ 100 pts</span>
+                </div>
+                
+                <div class="space-y-1 border-l border-black/5 pl-5">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl md:text-2xl font-normal text-primary">→ 94 pts</span>
+                        <span class="text-[11px] font-medium tracking-wider uppercase text-primary px-2 py-0.5 rounded bg-primary-fixed/40">Strong Fit</span>
+                    </div>
+                    <p class="text-xs text-secondary tracking-wide">
+                        Projected score after closing key skill gaps
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-sm text-secondary leading-relaxed max-w-2xl font-normal">
+                Solid baseline profile with strong core proficiencies. Closing infrastructure and microservice gaps will advance this profile to high match confidence.
+            </p>
+
+            <!-- Minimalist Projection Line -->
+            <div class="pt-2 max-w-2xl space-y-2">
+                <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden relative">
+                    <div class="h-full bg-primary/20 rounded-full absolute top-0 left-0" style="width: 94%;"></div>
+                    <div class="h-full bg-primary rounded-full absolute top-0 left-0" style="width: 78%;"></div>
+                </div>
+                <div class="flex justify-between text-[11px] text-secondary">
+                    <span>Baseline Score (78 / 100)</span>
+                    <span class="text-primary font-medium">Target Score (94 / 100)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Component Analysis (5 cols) -->
+        <div class="lg:col-span-5 lg:border-l border-black/5 lg:pl-10 space-y-6 pt-2 lg:pt-0">
+            <div class="flex justify-between items-center">
+                <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                    Component Breakdown
+                </h2>
+                <span class="text-[11px] text-secondary/60">3 Pillars</span>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Metric 1 -->
+                <div>
+                    <div class="flex justify-between text-xs font-normal mb-2">
+                        <span class="text-on-background">Technical Skills</span>
+                        <span class="text-secondary font-medium">85 / 100</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <!-- Metric 2 -->
+                <div>
+                    <div class="flex justify-between text-xs font-normal mb-2">
+                        <span class="text-on-background">Experience Match</span>
+                        <span class="text-secondary font-medium">70 / 100</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <!-- Metric 3 -->
+                <div>
+                    <div class="flex justify-between text-xs font-normal mb-2">
+                        <span class="text-on-background">Culture Fit</span>
+                        <span class="text-secondary font-medium">92 / 100</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full" style="width: 92%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Mid Section: Keyword & Skill Matrix (Editorial Ledger) -->
+    <section class="hairline-t pt-10">
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8">
+            <div>
+                <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                    Keyword &amp; Skill Coverage
+                </h2>
+                <p class="text-xs text-secondary/80 mt-1">Cross-referenced against role requirements &amp; tech stack index</p>
+            </div>
+            
+            <!-- Minimalist ratio meter -->
+            <div class="flex items-center gap-3 text-[11px] text-secondary">
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-primary"></span>
+                    4 Matched
+                </span>
+                <span class="text-black/20">/</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                    3 Gaps
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+            <!-- Left: Matched Skills Ledger -->
+            <div class="space-y-1">
+                <div class="flex items-center justify-between pb-3 border-b border-black/10 text-[11px] font-medium tracking-wider uppercase text-secondary">
+                    <span>Matched Profile Skills</span>
+                    <span>Status</span>
+                </div>
+
+                <div class="divide-y divide-black/[0.04]">
+                    <!-- Item 1 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-on-background">React.js</span>
+                                <span class="block text-[11px] text-secondary/70">Frontend Architecture</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-normal text-secondary">Core Match</span>
+                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-on-background">TypeScript</span>
+                                <span class="block text-[11px] text-secondary/70">Type Safety &amp; Scaling</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-normal text-secondary">Core Match</span>
+                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-on-background">Node.js</span>
+                                <span class="block text-[11px] text-secondary/70">Backend Services</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-normal text-secondary">Direct Match</span>
+                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-slate-50/60 -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary/80 flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-on-background">GraphQL</span>
+                                <span class="block text-[11px] text-secondary/70">API &amp; Query Layer</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-normal text-secondary">Direct Match</span>
+                            <span class="material-symbols-outlined text-[15px] text-primary">check</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Missing Gaps & Potential Impact Ledger -->
+            <div class="space-y-1">
+                <div class="flex items-center justify-between pb-3 border-b border-tertiary-fixed text-[11px] font-medium tracking-wider uppercase text-tertiary">
+                    <span>Identified Skill Gaps</span>
+                    <span>Score Leverage</span>
+                </div>
+
+                <div class="divide-y divide-black/[0.04]">
+                    <!-- Gap 1 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-[#fff9f6] -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-tertiary">Kubernetes</span>
+                                <span class="block text-[11px] text-secondary/70">Container Orchestration</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-medium text-tertiary px-2 py-0.5 rounded bg-tertiary-fixed/60">
+                                +9 Pts Impact
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Gap 2 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-[#fff9f6] -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-tertiary">Docker Swarm</span>
+                                <span class="block text-[11px] text-secondary/70">Deployment Automation</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-medium text-tertiary px-2 py-0.5 rounded bg-tertiary-fixed/60">
+                                +4 Pts Impact
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Gap 3 -->
+                    <div class="py-3 flex items-center justify-between group hover:bg-[#fff9f6] -mx-2 px-2 rounded transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary flex-shrink-0"></span>
+                            <div>
+                                <span class="text-sm font-normal text-tertiary">Go (Golang)</span>
+                                <span class="block text-[11px] text-secondary/70">Microservice Runtime</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-medium text-tertiary px-2 py-0.5 rounded bg-tertiary-fixed/60">
+                                +3 Pts Impact
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section: Clean 3-Column Wide Grid -->
+    <section class="hairline-t pt-10">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                Recommended Roadmap
+            </h2>
+            <span class="text-[11px] text-secondary/60">Preparation Steps</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            <!-- Step 1 -->
+            <div class="space-y-2 group">
+                <div class="flex items-baseline gap-3">
+                    <span class="text-sm font-light text-primary/70">01</span>
+                    <h3 class="text-sm font-medium text-on-background">
+                        Master Container Orchestration
+                    </h3>
+                </div>
+                <p class="text-xs text-secondary leading-relaxed font-normal pl-6">
+                    Focus on Kubernetes fundamentals to close the primary skill gap identified in infrastructure management.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="space-y-2 group">
+                <div class="flex items-baseline gap-3">
+                    <span class="text-sm font-light text-primary/70">02</span>
+                    <h3 class="text-sm font-medium text-on-background">
+                        Expand Backend Languages
+                    </h3>
+                </div>
+                <p class="text-xs text-secondary leading-relaxed font-normal pl-6">
+                    Incorporate Go into your tech stack to align better with modern microservices architectures required by this role.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="space-y-2 group">
+                <div class="flex items-baseline gap-3">
+                    <span class="text-sm font-light text-primary/70">03</span>
+                    <h3 class="text-sm font-medium text-on-background">
+                        Highlight System Design
+                    </h3>
+                </div>
+                <p class="text-xs text-secondary leading-relaxed font-normal pl-6">
+                    Emphasize past experience with scalable architecture in your portfolio to compensate for specific tool shortages.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Benchmarks: Wide 3 Columns -->
+    <section class="hairline-t pt-10">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-[11px] font-medium tracking-[0.18em] uppercase text-secondary">
+                Similar Roles &amp; Benchmarks
+            </h2>
+            <span class="text-[11px] text-secondary/60">Market Index</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0">
+            <!-- Role 1 -->
+            <div class="md:hairline-r md:pr-8 group cursor-pointer">
+                <div class="flex justify-between items-baseline mb-1">
+                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Vercel</span>
+                    <span class="text-xs font-normal text-primary">82 / 100 Score</span>
+                </div>
+                <p class="text-xs text-secondary">Senior Frontend Engineer</p>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="md:hairline-r md:px-8 hairline-t md:border-t-0 pt-6 md:pt-0 group cursor-pointer">
+                <div class="flex justify-between items-baseline mb-1">
+                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Linear</span>
+                    <span class="text-xs font-normal text-primary">79 / 100 Score</span>
+                </div>
+                <p class="text-xs text-secondary">Product Engineer</p>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="md:pl-8 hairline-t md:border-t-0 pt-6 md:pt-0 group cursor-pointer">
+                <div class="flex justify-between items-baseline mb-1">
+                    <span class="text-sm font-medium text-on-background group-hover:text-primary transition-colors">Stripe</span>
+                    <span class="text-xs font-normal text-primary">75 / 100 Score</span>
+                </div>
+                <p class="text-xs text-secondary">Fullstack Developer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actions & CTA -->
+    <section class="hairline-t pt-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-secondary font-normal">
+            Assessment generated based on latest job specifications.
+        </p>
+        
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+            <a href="index.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 text-xs font-medium text-white bg-primary hover:bg-primary-container rounded transition-colors cursor-pointer">
+                Analyze Another
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Minimal Footer -->
+<footer class="hairline-t mt-auto">
+    <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-secondary">
+        <div class="flex items-center gap-2.5">
+            <img alt="Parse" class="h-4 w-auto object-contain opacity-75" src="./logo-transparent.png"/>
+            <span class="opacity-40">•</span>
+            <span>© 2024 Parse. All rights reserved.</span>
+        </div>
+        <div class="flex gap-6">
+            <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <a class="hover:text-primary transition-colors" href="#">Contact</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
