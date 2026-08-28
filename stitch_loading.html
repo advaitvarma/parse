@@ -1,7 +1,20 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Parse - Loading</title>
+
+    <script>
+        // Check local storage for theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    </script>
+
+    <title>Parse - Loading</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -12,53 +25,54 @@
           theme: {
             extend: {
               "colors": {
-                      "on-tertiary-fixed-variant": "#7b2f00",
-                      "outline-variant": "#c7c4d8",
-                      "on-secondary": "#ffffff",
-                      "surface-dim": "#dadada",
-                      "inverse-on-surface": "#f0f1f1",
-                      "inverse-surface": "#2f3131",
-                      "primary-fixed": "#e2dfff",
-                      "secondary-container": "#d9dff5",
-                      "on-primary": "#ffffff",
-                      "on-primary-fixed": "#0f0069",
-                      "surface-container-lowest": "#ffffff",
-                      "on-tertiary-fixed": "#351000",
-                      "secondary": "#575e70",
-                      "on-secondary-fixed-variant": "#404758",
-                      "on-error": "#ffffff",
-                      "on-error-container": "#93000a",
-                      "surface-tint": "#4d44e3",
-                      "on-surface": "#1a1c1c",
-                      "on-primary-fixed-variant": "#3323cc",
-                      "error-container": "#ffdad6",
-                      "tertiary-container": "#a44100",
-                      "surface-bright": "#f9f9f9",
-                      "tertiary-fixed": "#ffdbcc",
-                      "surface-container": "#eeeeee",
-                      "error": "#ba1a1a",
-                      "tertiary": "#7e3000",
-                      "on-tertiary-container": "#ffd2be",
-                      "secondary-fixed-dim": "#c0c6db",
-                      "surface-container-high": "#e8e8e8",
-                      "surface-container-low": "#f3f3f3",
-                      "on-secondary-container": "#5c6274",
-                      "on-tertiary": "#ffffff",
-                      "primary": "#3525cd",
-                      "outline": "#777587",
-                      "primary-fixed-dim": "#c3c0ff",
-                      "surface-variant": "#e2e2e2",
-                      "on-primary-container": "#dad7ff",
-                      "secondary-fixed": "#dce2f7",
-                      "surface-container-highest": "#e2e2e2",
-                      "inverse-primary": "#c3c0ff",
-                      "tertiary-fixed-dim": "#ffb695",
-                      "on-secondary-fixed": "#141b2b",
-                      "on-surface-variant": "#464555",
-                      "on-background": "#1a1c1c",
-                      "surface": "#f9f9f9",
-                      "primary-container": "#4f46e5",
-                      "background": "#f9f9f9"
+                "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
+                "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+                "primary": "rgb(var(--color-primary) / <alpha-value>)",
+                "primary-dark": "rgb(var(--color-primary-dark) / <alpha-value>)",
+                "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+                "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+                "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
+                "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+                "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
+                "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
+                "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
+                "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
+                "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+                "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
+                "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
+                "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+                "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
+                "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
+                "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
+                "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
+                "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
+                "surface": "rgb(var(--color-surface) / <alpha-value>)",
+                "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
+                "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
+                "outline": "rgb(var(--color-outline) / <alpha-value>)",
+                "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
+                "error": "rgb(var(--color-error) / <alpha-value>)",
+                "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+                "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+                "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)",
+                "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+                "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+                "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
+                "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+                "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+                "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+                "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
+                "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
+                "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+                "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
+                "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
+                "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+                "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
+                "tertiary": "rgb(var(--color-tertiary) / <alpha-value>)",
+                "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
+                "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
+                "background": "rgb(var(--color-background) / <alpha-value>)",
+                "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)"
               },
               "borderRadius": {
                       "DEFAULT": "0.25rem",
@@ -188,6 +202,110 @@
         }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+
+    <style>
+        :root {
+            --color-tertiary-fixed: 255 219 204;
+            --color-on-background: 26 28 28;
+            --color-primary: 82 76 237;
+            --color-primary-dark: 53 37 205;
+            --color-on-surface-variant: 70 69 85;
+            --color-on-error: 255 255 255;
+            --color-on-tertiary: 255 255 255;
+            --color-primary-container: 79 70 229;
+            --color-on-secondary-fixed: 20 27 43;
+            --color-error-container: 255 218 214;
+            --color-on-tertiary-fixed-variant: 123 47 0;
+            --color-secondary-fixed: 220 226 247;
+            --color-surface-container-highest: 226 226 226;
+            --color-inverse-on-surface: 240 241 241;
+            --color-tertiary-container: 164 65 0;
+            --color-on-secondary: 255 255 255;
+            --color-on-tertiary-fixed: 53 16 0;
+            --color-surface-tint: 82 76 237;
+            --color-surface-bright: 249 249 249;
+            --color-inverse-primary: 195 192 255;
+            --color-on-tertiary-container: 255 210 190;
+            --color-surface: 249 249 249;
+            --color-on-primary-fixed: 15 0 105;
+            --color-outline-variant: 199 196 216;
+            --color-outline: 119 117 135;
+            --color-primary-fixed: 226 223 255;
+            --color-error: 186 26 26;
+            --color-on-primary-container: 218 215 255;
+            --color-primary-fixed-dim: 195 192 255;
+            --color-surface-container: 238 238 238;
+            --color-on-primary: 255 255 255;
+            --color-surface-container-low: 243 243 243;
+            --color-inverse-surface: 47 49 49;
+            --color-surface-dim: 218 218 218;
+            --color-surface-container-high: 232 232 232;
+            --color-secondary: 87 94 112;
+            --color-surface-variant: 226 226 226;
+            --color-on-error-container: 147 0 10;
+            --color-surface-container-lowest: 255 255 255;
+            --color-secondary-fixed-dim: 192 198 219;
+            --color-tertiary-fixed-dim: 255 182 149;
+            --color-on-surface: 26 28 28;
+            --color-on-primary-fixed-variant: 51 35 204;
+            --color-tertiary: 126 48 0;
+            --color-on-secondary-fixed-variant: 64 71 88;
+            --color-secondary-container: 217 223 245;
+            --color-background: 250 250 250;
+            --color-on-secondary-container: 92 98 116;
+        }
+        .dark {
+            --color-tertiary-fixed: 255 219 204;
+            --color-on-background: 240 241 241;
+            --color-primary: 123 118 255;
+            --color-primary-dark: 53 37 205;
+            --color-on-surface-variant: 160 168 188;
+            --color-on-error: 255 255 255;
+            --color-on-tertiary: 255 255 255;
+            --color-primary-container: 53 37 205;
+            --color-on-secondary-fixed: 20 27 43;
+            --color-error-container: 255 218 214;
+            --color-on-tertiary-fixed-variant: 123 47 0;
+            --color-secondary-fixed: 220 226 247;
+            --color-surface-container-highest: 42 48 69;
+            --color-inverse-on-surface: 26 28 28;
+            --color-tertiary-container: 164 65 0;
+            --color-on-secondary: 255 255 255;
+            --color-on-tertiary-fixed: 53 16 0;
+            --color-surface-tint: 82 76 237;
+            --color-surface-bright: 249 249 249;
+            --color-inverse-primary: 195 192 255;
+            --color-on-tertiary-container: 255 210 190;
+            --color-surface: 19 22 32;
+            --color-on-primary-fixed: 15 0 105;
+            --color-outline-variant: 42 48 69;
+            --color-outline: 91 100 122;
+            --color-primary-fixed: 226 223 255;
+            --color-error: 186 26 26;
+            --color-on-primary-container: 255 255 255;
+            --color-primary-fixed-dim: 195 192 255;
+            --color-surface-container: 19 22 32;
+            --color-on-primary: 255 255 255;
+            --color-surface-container-low: 16 18 28;
+            --color-inverse-surface: 240 241 241;
+            --color-surface-dim: 218 218 218;
+            --color-surface-container-high: 30 34 51;
+            --color-secondary: 138 148 173;
+            --color-surface-variant: 30 34 51;
+            --color-on-error-container: 147 0 10;
+            --color-surface-container-lowest: 10 12 18;
+            --color-secondary-fixed-dim: 192 198 219;
+            --color-tertiary-fixed-dim: 255 182 149;
+            --color-on-surface: 240 241 241;
+            --color-on-primary-fixed-variant: 51 35 204;
+            --color-tertiary: 255 182 149;
+            --color-on-secondary-fixed-variant: 64 71 88;
+            --color-secondary-container: 217 223 245;
+            --color-background: 15 17 26;
+            --color-on-secondary-container: 92 98 116;
+        }
+    </style>
+
 </head>
 <body class="bg-background min-h-screen flex items-center justify-center p-margin-mobile md:p-margin-desktop antialiased text-on-surface">
 <main class="w-full max-w-sm mx-auto flex flex-col items-center justify-center">

@@ -3,6 +3,19 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    
+    <script>
+        // Check local storage for theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    </script>
+
     <title>Parse - Analysis Results</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -12,55 +25,55 @@
           darkMode: "class",
           theme: {
             extend: {
-              colors: {
-                "tertiary-fixed": "#ffdbcc",
-                "on-background": "#1a1c1c",
-                "primary": "#524CED",
-                "primary-dark": "#3525cd",
-                "on-surface-variant": "#464555",
-                "on-error": "#ffffff",
-                "on-tertiary": "#ffffff",
-                "primary-container": "#4f46e5",
-                "on-secondary-fixed": "#141b2b",
-                "error-container": "#ffdad6",
-                "on-tertiary-fixed-variant": "#7b2f00",
-                "secondary-fixed": "#dce2f7",
-                "surface-container-highest": "#e2e2e2",
-                "inverse-on-surface": "#f0f1f1",
-                "tertiary-container": "#a44100",
-                "on-secondary": "#ffffff",
-                "on-tertiary-fixed": "#351000",
-                "surface-tint": "#524CED",
-                "surface-bright": "#f9f9f9",
-                "inverse-primary": "#c3c0ff",
-                "on-tertiary-container": "#ffd2be",
-                "surface": "#f9f9f9",
-                "on-primary-fixed": "#0f0069",
-                "outline-variant": "#c7c4d8",
-                "outline": "#777587",
-                "primary-fixed": "#e2dfff",
-                "error": "#ba1a1a",
-                "on-primary-container": "#dad7ff",
-                "primary-fixed-dim": "#c3c0ff",
-                "surface-container": "#eeeeee",
-                "on-primary": "#ffffff",
-                "surface-container-low": "#f3f3f3",
-                "inverse-surface": "#2f3131",
-                "surface-dim": "#dadada",
-                "surface-container-high": "#e8e8e8",
-                "secondary": "#575e70",
-                "surface-variant": "#e2e2e2",
-                "on-error-container": "#93000a",
-                "surface-container-lowest": "#ffffff",
-                "secondary-fixed-dim": "#c0c6db",
-                "tertiary-fixed-dim": "#ffb695",
-                "on-surface": "#1a1c1c",
-                "on-primary-fixed-variant": "#3323cc",
-                "tertiary": "#7e3000",
-                "on-secondary-fixed-variant": "#404758",
-                "secondary-container": "#d9dff5",
-                "background": "#FAFAFA",
-                "on-secondary-container": "#5c6274"
+              "colors": {
+                "tertiary-fixed": "rgb(var(--color-tertiary-fixed) / <alpha-value>)",
+                "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+                "primary": "rgb(var(--color-primary) / <alpha-value>)",
+                "primary-dark": "rgb(var(--color-primary-dark) / <alpha-value>)",
+                "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+                "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+                "on-tertiary": "rgb(var(--color-on-tertiary) / <alpha-value>)",
+                "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+                "on-secondary-fixed": "rgb(var(--color-on-secondary-fixed) / <alpha-value>)",
+                "error-container": "rgb(var(--color-error-container) / <alpha-value>)",
+                "on-tertiary-fixed-variant": "rgb(var(--color-on-tertiary-fixed-variant) / <alpha-value>)",
+                "secondary-fixed": "rgb(var(--color-secondary-fixed) / <alpha-value>)",
+                "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+                "inverse-on-surface": "rgb(var(--color-inverse-on-surface) / <alpha-value>)",
+                "tertiary-container": "rgb(var(--color-tertiary-container) / <alpha-value>)",
+                "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+                "on-tertiary-fixed": "rgb(var(--color-on-tertiary-fixed) / <alpha-value>)",
+                "surface-tint": "rgb(var(--color-surface-tint) / <alpha-value>)",
+                "surface-bright": "rgb(var(--color-surface-bright) / <alpha-value>)",
+                "inverse-primary": "rgb(var(--color-inverse-primary) / <alpha-value>)",
+                "on-tertiary-container": "rgb(var(--color-on-tertiary-container) / <alpha-value>)",
+                "surface": "rgb(var(--color-surface) / <alpha-value>)",
+                "on-primary-fixed": "rgb(var(--color-on-primary-fixed) / <alpha-value>)",
+                "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
+                "outline": "rgb(var(--color-outline) / <alpha-value>)",
+                "primary-fixed": "rgb(var(--color-primary-fixed) / <alpha-value>)",
+                "error": "rgb(var(--color-error) / <alpha-value>)",
+                "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+                "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+                "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)",
+                "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+                "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+                "inverse-surface": "rgb(var(--color-inverse-surface) / <alpha-value>)",
+                "surface-dim": "rgb(var(--color-surface-dim) / <alpha-value>)",
+                "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+                "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+                "surface-variant": "rgb(var(--color-surface-variant) / <alpha-value>)",
+                "on-error-container": "rgb(var(--color-on-error-container) / <alpha-value>)",
+                "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+                "secondary-fixed-dim": "rgb(var(--color-secondary-fixed-dim) / <alpha-value>)",
+                "tertiary-fixed-dim": "rgb(var(--color-tertiary-fixed-dim) / <alpha-value>)",
+                "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+                "on-primary-fixed-variant": "rgb(var(--color-on-primary-fixed-variant) / <alpha-value>)",
+                "tertiary": "rgb(var(--color-tertiary) / <alpha-value>)",
+                "on-secondary-fixed-variant": "rgb(var(--color-on-secondary-fixed-variant) / <alpha-value>)",
+                "secondary-container": "rgb(var(--color-secondary-container) / <alpha-value>)",
+                "background": "rgb(var(--color-background) / <alpha-value>)",
+                "on-secondary-container": "rgb(var(--color-on-secondary-container) / <alpha-value>)"
               },
               fontFamily: {
                 "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"]
@@ -144,8 +157,112 @@
         .delay-400 { animation-delay: 0.4s; }
         .delay-500 { animation-delay: 0.5s; }
     </style>
+
+    <style>
+        :root {
+            --color-tertiary-fixed: 255 219 204;
+            --color-on-background: 26 28 28;
+            --color-primary: 82 76 237;
+            --color-primary-dark: 53 37 205;
+            --color-on-surface-variant: 70 69 85;
+            --color-on-error: 255 255 255;
+            --color-on-tertiary: 255 255 255;
+            --color-primary-container: 79 70 229;
+            --color-on-secondary-fixed: 20 27 43;
+            --color-error-container: 255 218 214;
+            --color-on-tertiary-fixed-variant: 123 47 0;
+            --color-secondary-fixed: 220 226 247;
+            --color-surface-container-highest: 226 226 226;
+            --color-inverse-on-surface: 240 241 241;
+            --color-tertiary-container: 164 65 0;
+            --color-on-secondary: 255 255 255;
+            --color-on-tertiary-fixed: 53 16 0;
+            --color-surface-tint: 82 76 237;
+            --color-surface-bright: 249 249 249;
+            --color-inverse-primary: 195 192 255;
+            --color-on-tertiary-container: 255 210 190;
+            --color-surface: 249 249 249;
+            --color-on-primary-fixed: 15 0 105;
+            --color-outline-variant: 199 196 216;
+            --color-outline: 119 117 135;
+            --color-primary-fixed: 226 223 255;
+            --color-error: 186 26 26;
+            --color-on-primary-container: 218 215 255;
+            --color-primary-fixed-dim: 195 192 255;
+            --color-surface-container: 238 238 238;
+            --color-on-primary: 255 255 255;
+            --color-surface-container-low: 243 243 243;
+            --color-inverse-surface: 47 49 49;
+            --color-surface-dim: 218 218 218;
+            --color-surface-container-high: 232 232 232;
+            --color-secondary: 87 94 112;
+            --color-surface-variant: 226 226 226;
+            --color-on-error-container: 147 0 10;
+            --color-surface-container-lowest: 255 255 255;
+            --color-secondary-fixed-dim: 192 198 219;
+            --color-tertiary-fixed-dim: 255 182 149;
+            --color-on-surface: 26 28 28;
+            --color-on-primary-fixed-variant: 51 35 204;
+            --color-tertiary: 126 48 0;
+            --color-on-secondary-fixed-variant: 64 71 88;
+            --color-secondary-container: 217 223 245;
+            --color-background: 250 250 250;
+            --color-on-secondary-container: 92 98 116;
+        }
+        .dark {
+            --color-tertiary-fixed: 255 219 204;
+            --color-on-background: 240 241 241;
+            --color-primary: 123 118 255;
+            --color-primary-dark: 53 37 205;
+            --color-on-surface-variant: 160 168 188;
+            --color-on-error: 255 255 255;
+            --color-on-tertiary: 255 255 255;
+            --color-primary-container: 53 37 205;
+            --color-on-secondary-fixed: 20 27 43;
+            --color-error-container: 255 218 214;
+            --color-on-tertiary-fixed-variant: 123 47 0;
+            --color-secondary-fixed: 220 226 247;
+            --color-surface-container-highest: 42 48 69;
+            --color-inverse-on-surface: 26 28 28;
+            --color-tertiary-container: 164 65 0;
+            --color-on-secondary: 255 255 255;
+            --color-on-tertiary-fixed: 53 16 0;
+            --color-surface-tint: 82 76 237;
+            --color-surface-bright: 249 249 249;
+            --color-inverse-primary: 195 192 255;
+            --color-on-tertiary-container: 255 210 190;
+            --color-surface: 19 22 32;
+            --color-on-primary-fixed: 15 0 105;
+            --color-outline-variant: 42 48 69;
+            --color-outline: 91 100 122;
+            --color-primary-fixed: 226 223 255;
+            --color-error: 186 26 26;
+            --color-on-primary-container: 255 255 255;
+            --color-primary-fixed-dim: 195 192 255;
+            --color-surface-container: 19 22 32;
+            --color-on-primary: 255 255 255;
+            --color-surface-container-low: 16 18 28;
+            --color-inverse-surface: 240 241 241;
+            --color-surface-dim: 218 218 218;
+            --color-surface-container-high: 30 34 51;
+            --color-secondary: 138 148 173;
+            --color-surface-variant: 30 34 51;
+            --color-on-error-container: 147 0 10;
+            --color-surface-container-lowest: 10 12 18;
+            --color-secondary-fixed-dim: 192 198 219;
+            --color-tertiary-fixed-dim: 255 182 149;
+            --color-on-surface: 240 241 241;
+            --color-on-primary-fixed-variant: 51 35 204;
+            --color-tertiary: 255 182 149;
+            --color-on-secondary-fixed-variant: 64 71 88;
+            --color-secondary-container: 217 223 245;
+            --color-background: 15 17 26;
+            --color-on-secondary-container: 92 98 116;
+        }
+    </style>
+
 </head>
-<body class="bg-[#FAFAFA] text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white relative overflow-x-hidden">
+<body class="bg-background text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white relative overflow-x-hidden">
 
 <!-- Parallax ambient glow orbs matching index -->
 <div class="orb orb-1" data-parallax></div>
@@ -154,12 +271,12 @@
 
 <!-- Top Navigation -->
 <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-6 px-4 sm:px-6">
-    <div id="nav-container" class="mx-auto bg-[#FAFAFA]/90 backdrop-blur-md transition-all duration-300 max-w-4xl rounded-[2rem] border border-black/10 shadow-sm">
+    <div id="nav-container" class="mx-auto bg-background/90 backdrop-blur-md transition-all duration-300 max-w-4xl rounded-[2rem] border border-black/10 shadow-sm">
         <div class="w-full max-w-7xl mx-auto flex items-center justify-between px-6 sm:px-10 h-14 sm:h-16">
             <a href="index.html" class="inline-flex items-center cursor-pointer transition-opacity hover:opacity-80">
                 <!-- Inline SVG Logo -->
-                <svg class="h-16 sm:h-20 w-auto" viewBox="0 0 1280 853" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(0,853) scale(0.1,-0.1)" fill="#524CED" stroke="none">
+                <svg class="h-16 sm:h-20 w-auto text-primary" viewBox="0 0 1280 853" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,853) scale(0.1,-0.1)" fill="currentColor" stroke="none">
                         <path d="M3662 5116 c-29 -14 -76 -48 -106 -76 -49 -46 -57 -50 -103 -50 -66 0 -132 -21 -178 -55 -41 -32 -91 -99 -100 -136 -3 -13 -27 -46 -52 -74 -85 -94 -125 -215 -104 -314 25 -116 93 -208 193 -261 51 -27 77 -34 138 -38 l76 -4 23 -50 c28 -61 80 -113 146 -144 60 -29 183 -33 241 -9 l35 14 156 -155 c190 -189 216 -203 274 -145 35 35 37 64 10 159 l-18 67 76 0 c63 0 85 5 127 27 81 42 135 113 149 195 5 34 14 46 47 68 29 19 48 44 71 93 28 59 32 78 32 152 0 69 -4 94 -23 132 -22 45 -85 118 -102 118 -4 0 -10 32 -13 71 -10 118 -60 192 -152 223 -19 7 -45 26 -58 43 -76 103 -219 153 -354 125 -46 -10 -55 -9 -104 15 -46 22 -70 27 -164 30 -101 4 -114 2 -163 -21z m254 -87 c24 -6 47 -15 49 -20 3 -4 -18 -36 -48 -71 -29 -35 -60 -73 -68 -85 l-15 -21 -123 53 c-68 30 -125 56 -127 58 -9 9 73 63 121 79 58 20 147 23 211 7z m354 -50 c47 -21 110 -75 110 -94 0 -6 -34 -51 -74 -98 l-75 -87 -14 32 c-8 18 -37 83 -65 145 -27 61 -48 114 -44 117 14 14 120 4 162 -15z m-200 -94 c0 -2 18 -41 40 -86 47 -97 51 -116 18 -97 -13 7 -43 19 -68 28 -66 24 -150 64 -150 71 0 9 99 132 113 141 9 5 47 -40 47 -57z m-610 1 c0 -3 -20 -64 -45 -138 -25 -73 -45 -134 -45 -135 0 -2 -8 -3 -19 -3 -24 0 -86 130 -77 165 8 33 50 79 88 98 30 15 98 24 98 13z m246 -82 c57 -26 104 -50 104 -55 0 -20 -72 -229 -79 -229 -5 0 -30 53 -56 118 -27 64 -59 138 -72 165 -14 28 -19 47 -12 47 6 0 58 -21 115 -46z m811 -6 c37 -39 54 -77 46 -107 -4 -18 -13 -21 -57 -22 -28 0 -81 -3 -119 -8 -37 -4 -72 -4 -78 0 -7 4 10 30 45 68 31 34 64 70 74 81 24 29 54 25 89 -12z m-954 -88 c19 -47 51 -123 71 -169 20 -46 35 -85 33 -87 -2 -2 -32 5 -68 16 -35 11 -72 20 -81 20 -10 0 -18 4 -18 10 0 5 -13 25 -30 43 -16 19 -30 41 -30 48 0 28 73 220 81 212 4 -4 23 -46 42 -93z m426 -30 c54 -22 104 -40 109 -40 6 0 13 -4 16 -9 7 -10 -303 -165 -312 -156 -3 3 0 22 7 43 55 152 73 202 77 202 2 0 48 -18 103 -40z m-744 -61 c20 -39 25 -58 19 -82 -9 -37 -7 -62 8 -99 9 -25 6 -32 -43 -83 l-54 -56 -17 21 c-28 35 -51 127 -44 173 12 74 69 177 98 177 4 0 19 -23 33 -51z m1295 -29 c6 -4 -2 -24 -19 -53 -28 -43 -32 -46 -71 -44 -35 1 -46 7 -80 49 l-40 47 47 3 c76 6 152 5 163 -2z m-364 -72 c-3 -24 -13 -79 -21 -123 -8 -44 -18 -100 -22 -123 l-8 -44 -50 34 c-28 19 -92 56 -142 84 -51 27 -93 51 -93 54 0 8 311 158 329 159 10 1 12 -9 7 -41z m143 -37 c74 -93 72 -101 -54 -208 -27 -24 -53 -43 -57 -43 -13 0 -9 43 18 171 28 136 33 154 38 148 2 -2 27 -33 55 -68z m333 37 c66 -88 63 -210 -6 -285 l-32 -36 -32 62 c-31 58 -32 63 -17 91 18 34 19 64 5 91 -9 15 -5 29 16 64 14 25 29 45 34 45 4 0 19 -15 32 -32z m-1074 -119 c13 -5 34 -9 48 -9 13 0 24 -2 24 -5 0 -3 -37 -42 -82 -85 -100 -96 -132 -109 -220 -91 -61 13 -108 30 -108 40 0 3 24 32 53 64 43 49 59 59 92 63 22 3 49 14 60 25 16 16 28 18 65 13 25 -4 55 -11 68 -15z m331 -126 c99 -54 181 -105 181 -113 0 -4 -7 -13 -15 -20 -25 -21 -167 -100 -180 -100 -6 0 -16 15 -24 33 -23 59 -69 194 -76 226 -7 31 -6 31 21 21 15 -6 57 -27 93 -47z m-149 -109 c61 -183 62 -178 -45 -174 -91 3 -191 82 -182 145 3 23 150 185 168 185 4 0 31 -70 59 -156z m741 79 c13 -21 27 -44 32 -50 6 -10 -21 -12 -123 -11 -71 1 -130 4 -130 6 0 7 102 97 124 109 29 16 67 -6 97 -54z m35 -140 c43 -16 -18 -110 -93 -143 -55 -24 -125 -26 -163 -3 -17 9 -35 34 -44 58 -19 48 -20 60 -5 87 11 20 16 20 151 14 77 -4 147 -10 154 -13z m-397 -63 c19 -33 25 -49 71 -216 34 -124 34 -124 21 -124 -15 0 -283 272 -276 279 15 15 141 90 153 90 7 1 21 -13 31 -29z"/>
                         <path d="M5160 4416 l0 -526 120 0 120 0 0 165 0 165 100 0 c195 0 298 37 382 137 54 63 72 133 66 254 -4 83 -9 104 -33 145 -49 86 -94 124 -190 159 -42 16 -89 19 -307 23 l-258 4 0 -526z m489 305 c45 -32 61 -70 61 -145 0 -55 -4 -69 -27 -97 -40 -47 -79 -59 -188 -59 l-95 0 0 166 0 167 108 -5 c93 -4 114 -8 141 -27z"/>
                         <path d="M6265 4681 c-64 -16 -136 -62 -168 -107 -32 -45 -61 -113 -53 -122 3 -2 38 -10 78 -17 40 -8 88 -17 106 -20 28 -7 32 -5 32 12 0 61 87 103 171 83 56 -14 79 -39 79 -87 0 -38 -1 -39 -140 -53 -164 -17 -248 -47 -307 -111 -54 -59 -70 -176 -34 -255 26 -57 90 -108 160 -128 110 -31 203 -18 284 40 l47 34 0 -30 0 -30 110 0 110 0 0 258 c0 142 -5 285 -11 318 -20 110 -80 178 -185 210 -50 15 -225 18 -279 5z m245 -505 c0 -60 -2 -66 -35 -94 -33 -29 -89 -52 -128 -52 -26 0 -73 26 -90 50 -21 30 -8 88 25 113 30 23 120 45 186 46 l42 1 0 -64z"/>
@@ -171,10 +288,16 @@
             </a>
 
             <div>
-                <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-[#524CED] transition-colors cursor-pointer py-1.5 px-3 rounded-md hover:bg-black/[0.03]">
+                <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-primary transition-colors cursor-pointer py-1.5 px-3 rounded-md hover:bg-black/[0.03]">
                     <span class="material-symbols-outlined text-[16px]">refresh</span>
                     Start Over
                 </a>
+
+                <button id="theme-toggle" type="button" class="inline-flex items-center justify-center p-1.5 ml-2 rounded-full text-on-surface-variant hover:text-primary transition-colors hover:bg-black/[0.03] dark:hover:bg-white/[0.05]">
+                    <span class="material-symbols-outlined text-[20px] dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined text-[20px] hidden dark:block">light_mode</span>
+                </button>
+
             </div>
         </div>
     </div>
@@ -185,7 +308,7 @@
 
     <!-- 1. Hero Score Card -->
     <section class="flex flex-col items-center text-center animate-fade-up">
-        <h1 class="text-sm font-semibold tracking-[0.2em] uppercase text-[#524CED] mb-6">Match Analysis</h1>
+        <h1 class="text-sm font-semibold tracking-[0.2em] uppercase text-primary mb-6">Match Analysis</h1>
         
         <div class="relative w-48 h-48 mb-6 flex items-center justify-center">
             <!-- SVG Radial Progress -->
@@ -211,8 +334,8 @@
         
         <div class="max-w-md mx-auto pt-6">
             <div class="flex items-center justify-center gap-2 mb-3">
-                <span class="text-xl font-medium text-[#524CED]">→ 94 pts</span>
-                <span class="text-[10px] font-semibold tracking-wider uppercase text-[#524CED] px-2 py-0.5 rounded-full bg-[#524CED]/10">Strong Fit</span>
+                <span class="text-xl font-medium text-primary">→ 94 pts</span>
+                <span class="text-[10px] font-semibold tracking-wider uppercase text-primary px-2 py-0.5 rounded-full bg-primary/10">Strong Fit</span>
             </div>
             <p class="text-xs text-secondary leading-relaxed font-normal">
                 Solid baseline profile. Closing infrastructure and microservice gaps will advance this profile to high match confidence.
@@ -225,53 +348,53 @@
         <!-- Technical -->
         <div class="group">
             <div class="flex justify-between items-center mb-4">
-                <span class="material-symbols-outlined text-[#524CED] text-xl">code</span>
+                <span class="material-symbols-outlined text-primary text-xl">code</span>
                 <span class="text-xs font-semibold text-secondary">85%</span>
             </div>
             <h3 class="text-sm font-medium text-on-background mb-2">Technical Skills</h3>
             <div class="h-1 w-full bg-slate-200/50 rounded-full overflow-hidden">
-                <div class="h-full bg-[#524CED] rounded-full progress-bar transition-all duration-[1500ms] ease-out" style="width: 0%;" data-target="85%"></div>
+                <div class="h-full bg-primary rounded-full progress-bar transition-all duration-[1500ms] ease-out" style="width: 0%;" data-target="85%"></div>
             </div>
         </div>
         <!-- Experience -->
         <div class="group">
             <div class="flex justify-between items-center mb-4">
-                <span class="material-symbols-outlined text-[#524CED] text-xl">work</span>
+                <span class="material-symbols-outlined text-primary text-xl">work</span>
                 <span class="text-xs font-semibold text-secondary">70%</span>
             </div>
             <h3 class="text-sm font-medium text-on-background mb-2">Experience Match</h3>
             <div class="h-1 w-full bg-slate-200/50 rounded-full overflow-hidden">
-                <div class="h-full bg-[#524CED] rounded-full progress-bar transition-all duration-[1500ms] ease-out delay-100" style="width: 0%;" data-target="70%"></div>
+                <div class="h-full bg-primary rounded-full progress-bar transition-all duration-[1500ms] ease-out delay-100" style="width: 0%;" data-target="70%"></div>
             </div>
         </div>
         <!-- Culture -->
         <div class="group">
             <div class="flex justify-between items-center mb-4">
-                <span class="material-symbols-outlined text-[#524CED] text-xl">groups</span>
+                <span class="material-symbols-outlined text-primary text-xl">groups</span>
                 <span class="text-xs font-semibold text-secondary">92%</span>
             </div>
             <h3 class="text-sm font-medium text-on-background mb-2">Culture Fit</h3>
             <div class="h-1 w-full bg-slate-200/50 rounded-full overflow-hidden">
-                <div class="h-full bg-[#524CED] rounded-full progress-bar transition-all duration-[1500ms] ease-out delay-200" style="width: 0%;" data-target="92%"></div>
+                <div class="h-full bg-primary rounded-full progress-bar transition-all duration-[1500ms] ease-out delay-200" style="width: 0%;" data-target="92%"></div>
             </div>
         </div>
     </section>
 
     <!-- 3. Skill Analysis Matrix -->
     <section class="animate-fade-up delay-300 hairline-t pt-10">
-        <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-center text-[#524CED] mb-12">Skill Analysis</h2>
+        <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-center text-primary mb-12">Skill Analysis</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
             <!-- Strengths -->
             <div>
-                <div class="flex items-center gap-2 mb-6 pb-4 border-b border-black/5">
-                    <span class="material-symbols-outlined text-[#524CED] text-lg">verified</span>
+                <div class="flex items-center gap-2 mb-6 pb-4 border-b border-outline-variant/20">
+                    <span class="material-symbols-outlined text-primary text-lg">verified</span>
                     <h3 class="text-sm font-medium text-on-background tracking-wide">Core Strengths</h3>
                 </div>
                 <div class="space-y-6">
                     <!-- Item -->
                     <div class="flex items-start gap-4 group">
-                        <div class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0 mt-2 transition-transform group-hover:scale-150"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2 transition-transform group-hover:scale-150"></div>
                         <div>
                             <h4 class="text-sm font-medium text-on-background">React.js & TypeScript</h4>
                             <p class="text-xs text-secondary mt-1 leading-relaxed">Excellent alignment with frontend scaling requirements.</p>
@@ -279,7 +402,7 @@
                     </div>
                     <!-- Item -->
                     <div class="flex items-start gap-4 group">
-                        <div class="w-1.5 h-1.5 rounded-full bg-[#524CED] flex-shrink-0 mt-2 transition-transform group-hover:scale-150"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2 transition-transform group-hover:scale-150"></div>
                         <div>
                             <h4 class="text-sm font-medium text-on-background">Node.js & GraphQL</h4>
                             <p class="text-xs text-secondary mt-1 leading-relaxed">Direct match for API layer and backend services.</p>
@@ -290,7 +413,7 @@
 
             <!-- Gaps -->
             <div>
-                <div class="flex items-center gap-2 mb-6 pb-4 border-b border-black/5">
+                <div class="flex items-center gap-2 mb-6 pb-4 border-b border-outline-variant/20">
                     <span class="material-symbols-outlined text-tertiary text-lg">flag</span>
                     <h3 class="text-sm font-medium text-tertiary tracking-wide">Identified Gaps</h3>
                 </div>
@@ -324,29 +447,29 @@
 
     <!-- 4. Vertical Roadmap -->
     <section class="animate-fade-up delay-400 max-w-md mx-auto pt-16 pb-8">
-        <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-center text-[#524CED] mb-12">Action Plan</h2>
+        <h2 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-center text-primary mb-12">Action Plan</h2>
         
         <div class="relative border-l border-black/10 ml-4 space-y-12">
             <!-- Step 1 -->
             <div class="relative pl-8 group">
-                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-[#524CED] shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
-                <span class="text-[10px] font-bold tracking-widest uppercase text-[#524CED] block mb-1">Step 01</span>
+                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-primary block mb-1">Step 01</span>
                 <h3 class="text-sm font-medium text-on-background mb-1">Master Kubernetes</h3>
                 <p class="text-xs text-secondary leading-relaxed">Focus on K8s fundamentals to close the primary infrastructure gap.</p>
             </div>
             
             <!-- Step 2 -->
             <div class="relative pl-8 group">
-                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-[#524CED] shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
-                <span class="text-[10px] font-bold tracking-widest uppercase text-[#524CED] block mb-1">Step 02</span>
+                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-primary block mb-1">Step 02</span>
                 <h3 class="text-sm font-medium text-on-background mb-1">Learn Go Basics</h3>
                 <p class="text-xs text-secondary leading-relaxed">Incorporate Go syntax to align with modern microservices.</p>
             </div>
 
             <!-- Step 3 -->
             <div class="relative pl-8 group">
-                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-[#524CED] shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
-                <span class="text-[10px] font-bold tracking-widest uppercase text-[#524CED] block mb-1">Step 03</span>
+                <div class="absolute top-1 left-[-5px] w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_0_4px_rgba(82,76,237,0.15)] group-hover:scale-125 transition-transform"></div>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-primary block mb-1">Step 03</span>
                 <h3 class="text-sm font-medium text-on-background mb-1">System Design</h3>
                 <p class="text-xs text-secondary leading-relaxed">Highlight architecture experience in your portfolio.</p>
             </div>
@@ -359,14 +482,23 @@
 <footer class="hairline-t mt-auto relative z-10">
     <div class="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-secondary">
         <div class="flex items-center gap-2.5">
-            <img alt="Parse" class="h-4 w-auto object-contain" src="assets/logo.svg"/>
+            <svg class="h-4 w-auto object-contain text-primary" viewBox="0 0 1280 853" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(0,853) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+                    <path d="M3662 5116 c-29 -14 -76 -48 -106 -76 -49 -46 -57 -50 -103 -50 -66 0 -132 -21 -178 -55 -41 -32 -91 -99 -100 -136 -3 -13 -27 -46 -52 -74 -85 -94 -125 -215 -104 -314 25 -116 93 -208 193 -261 51 -27 77 -34 138 -38 l76 -4 23 -50 c28 -61 80 -113 146 -144 60 -29 183 -33 241 -9 l35 14 156 -155 c190 -189 216 -203 274 -145 35 35 37 64 10 159 l-18 67 76 0 c63 0 85 5 127 27 81 42 135 113 149 195 5 34 14 46 47 68 29 19 48 44 71 93 28 59 32 78 32 152 0 69 -4 94 -23 132 -22 45 -85 118 -102 118 -4 0 -10 32 -13 71 -10 118 -60 192 -152 223 -19 7 -45 26 -58 43 -76 103 -219 153 -354 125 -46 -10 -55 -9 -104 15 -46 22 -70 27 -164 30 -101 4 -114 2 -163 -21z m254 -87 c24 -6 47 -15 49 -20 3 -4 -18 -36 -48 -71 -29 -35 -60 -73 -68 -85 l-15 -21 -123 53 c-68 30 -125 56 -127 58 -9 9 73 63 121 79 58 20 147 23 211 7z m354 -50 c47 -21 110 -75 110 -94 0 -6 -34 -51 -74 -98 l-75 -87 -14 32 c-8 18 -37 83 -65 145 -27 61 -48 114 -44 117 14 14 120 4 162 -15z m-200 -94 c0 -2 18 -41 40 -86 47 -97 51 -116 18 -97 -13 7 -43 19 -68 28 -66 24 -150 64 -150 71 0 9 99 132 113 141 9 5 47 -40 47 -57z m-610 1 c0 -3 -20 -64 -45 -138 -25 -73 -45 -134 -45 -135 0 -2 -8 -3 -19 -3 -24 0 -86 130 -77 165 8 33 50 79 88 98 30 15 98 24 98 13z m246 -82 c57 -26 104 -50 104 -55 0 -20 -72 -229 -79 -229 -5 0 -30 53 -56 118 -27 64 -59 138 -72 165 -14 28 -19 47 -12 47 6 0 58 -21 115 -46z m811 -6 c37 -39 54 -77 46 -107 -4 -18 -13 -21 -57 -22 -28 0 -81 -3 -119 -8 -37 -4 -72 -4 -78 0 -7 4 10 30 45 68 31 34 64 70 74 81 24 29 54 25 89 -12z m-954 -88 c19 -47 51 -123 71 -169 20 -46 35 -85 33 -87 -2 -2 -32 5 -68 16 -35 11 -72 20 -81 20 -10 0 -18 4 -18 10 0 5 -13 25 -30 43 -16 19 -30 41 -30 48 0 28 73 220 81 212 4 -4 23 -46 42 -93z m426 -30 c54 -22 104 -40 109 -40 6 0 13 -4 16 -9 7 -10 -303 -165 -312 -156 -3 3 0 22 7 43 55 152 73 202 77 202 2 0 48 -18 103 -40z m-744 -61 c20 -39 25 -58 19 -82 -9 -37 -7 -62 8 -99 9 -25 6 -32 -43 -83 l-54 -56 -17 21 c-28 35 -51 127 -44 173 12 74 69 177 98 177 4 0 19 -23 33 -51z m1295 -29 c6 -4 -2 -24 -19 -53 -28 -43 -32 -46 -71 -44 -35 1 -46 7 -80 49 l-40 47 47 3 c76 6 152 5 163 -2z m-364 -72 c-3 -24 -13 -79 -21 -123 -8 -44 -18 -100 -22 -123 l-8 -44 -50 34 c-28 19 -92 56 -142 84 -51 27 -93 51 -93 54 0 8 311 158 329 159 10 1 12 -9 7 -41z m143 -37 c74 -93 72 -101 -54 -208 -27 -24 -53 -43 -57 -43 -13 0 -9 43 18 171 28 136 33 154 38 148 2 -2 27 -33 55 -68z m333 37 c66 -88 63 -210 -6 -285 l-32 -36 -32 62 c-31 58 -32 63 -17 91 18 34 19 64 5 91 -9 15 -5 29 16 64 14 25 29 45 34 45 4 0 19 -15 32 -32z m-1074 -119 c13 -5 34 -9 48 -9 13 0 24 -2 24 -5 0 -3 -37 -42 -82 -85 -100 -96 -132 -109 -220 -91 -61 13 -108 30 -108 40 0 3 24 32 53 64 43 49 59 59 92 63 22 3 49 14 60 25 16 16 28 18 65 13 25 -4 55 -11 68 -15z m331 -126 c99 -54 181 -105 181 -113 0 -4 -7 -13 -15 -20 -25 -21 -167 -100 -180 -100 -6 0 -16 15 -24 33 -23 59 -69 194 -76 226 -7 31 -6 31 21 21 15 -6 57 -27 93 -47z m-149 -109 c61 -183 62 -178 -45 -174 -91 3 -191 82 -182 145 3 23 150 185 168 185 4 0 31 -70 59 -156z m741 79 c13 -21 27 -44 32 -50 6 -10 -21 -12 -123 -11 -71 1 -130 4 -130 6 0 7 102 97 124 109 29 16 67 -6 97 -54z m35 -140 c43 -16 -18 -110 -93 -143 -55 -24 -125 -26 -163 -3 -17 9 -35 34 -44 58 -19 48 -20 60 -5 87 11 20 16 20 151 14 77 -4 147 -10 154 -13z m-397 -63 c19 -33 25 -49 71 -216 34 -124 34 -124 21 -124 -15 0 -283 272 -276 279 15 15 141 90 153 90 7 1 21 -13 31 -29z"/>
+                    <path d="M5160 4416 l0 -526 120 0 120 0 0 165 0 165 100 0 c195 0 298 37 382 137 54 63 72 133 66 254 -4 83 -9 104 -33 145 -49 86 -94 124 -190 159 -42 16 -89 19 -307 23 l-258 4 0 -526z m489 305 c45 -32 61 -70 61 -145 0 -55 -4 -69 -27 -97 -40 -47 -79 -59 -188 -59 l-95 0 0 166 0 167 108 -5 c93 -4 114 -8 141 -27z"/>
+                    <path d="M6265 4681 c-64 -16 -136 -62 -168 -107 -32 -45 -61 -113 -53 -122 3 -2 38 -10 78 -17 40 -8 88 -17 106 -20 28 -7 32 -5 32 12 0 61 87 103 171 83 56 -14 79 -39 79 -87 0 -38 -1 -39 -140 -53 -164 -17 -248 -47 -307 -111 -54 -59 -70 -176 -34 -255 26 -57 90 -108 160 -128 110 -31 203 -18 284 40 l47 34 0 -30 0 -30 110 0 110 0 0 258 c0 142 -5 285 -11 318 -20 110 -80 178 -185 210 -50 15 -225 18 -279 5z m245 -505 c0 -60 -2 -66 -35 -94 -33 -29 -89 -52 -128 -52 -26 0 -73 26 -90 50 -21 30 -8 88 25 113 30 23 120 45 186 46 l42 1 0 -64z"/>
+                    <path d="M6885 4682 c-3 -3 -5 -182 -5 -399 l0 -393 113 0 114 0 2 240 c1 132 6 251 10 264 24 61 111 96 206 82 l45 -7 0 110 0 111 -64 0 c-96 0 -142 -23 -188 -95 l-19 -30 2 60 3 60 -107 1 c-59 1 -109 -1 -112 -4z"/>
+                    <path d="M7630 4683 c-8 -3 -31 -12 -50 -21 -19 -8 -39 -14 -45 -13 -5 2 -7 0 -3 -4 4 -4 -8 -20 -27 -36 -97 -86 -100 -260 -4 -331 46 -35 134 -65 254 -89 122 -25 145 -38 145 -83 0 -42 -14 -53 -83 -67 -51 -11 -60 -10 -104 12 -33 17 -53 34 -62 57 -13 29 -18 32 -59 32 -38 0 -171 -19 -180 -26 -10 -7 23 -88 53 -126 68 -89 192 -134 345 -125 113 7 177 28 233 77 57 50 82 112 81 196 -3 129 -61 180 -256 228 -193 46 -208 53 -208 90 1 37 25 56 79 63 73 8 134 -16 156 -63 14 -29 21 -35 38 -30 12 3 53 9 90 12 45 5 71 12 74 21 10 26 -30 107 -77 154 -63 63 -118 79 -264 78 -61 0 -118 -3 -126 -6z"/>
+                    <path d="M8453 4671 c-70 -24 -121 -61 -167 -121 -51 -66 -77 -139 -83 -232 -16 -228 93 -397 287 -442 180 -43 354 13 438 139 31 48 49 91 40 100 -6 6 -59 15 -135 22 -71 6 -73 5 -82 -19 -5 -14 -25 -36 -43 -49 -45 -33 -153 -34 -195 -3 -42 31 -73 83 -73 120 l0 34 270 0 270 0 0 73 c0 186 -92 330 -243 381 -66 22 -216 21 -284 -3z m222 -174 c11 -6 24 -15 30 -21 11 -11 45 -79 45 -90 0 -3 -70 -6 -155 -6 -107 0 -155 3 -155 11 0 21 41 85 63 99 47 29 123 32 172 7z"/>
+                </g>
+            </svg>
             <span class="opacity-40">•</span>
             <span>© 2025 Parse. All rights reserved.</span>
         </div>
         <div class="flex gap-6">
-            <a class="hover:text-[#524CED] transition-colors" href="#">Privacy Policy</a>
-            <a class="hover:text-[#524CED] transition-colors" href="#">Terms of Service</a>
-            <a class="hover:text-[#524CED] transition-colors" href="#">Contact</a>
+            <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <a class="hover:text-primary transition-colors" href="#">Contact</a>
         </div>
     </div>
 </footer>
@@ -451,6 +583,26 @@
                 }, stepTime);
             }
         }, 100); // slight delay to ensure CSS transitions trigger
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.remove('light');
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
     });
 </script>
 
