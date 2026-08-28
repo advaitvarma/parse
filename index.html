@@ -9,7 +9,7 @@
     <script>
         // Check local storage for theme preference
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (savedTheme === 'dark') {
             document.documentElement.classList.add('dark');
             document.documentElement.classList.remove('light');
         } else {
@@ -24,8 +24,7 @@
                 rel="stylesheet" />
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-        <!-- Tailwind Config injected from system prompt -->
-        <script id="tailwind-config">
+    <script id="tailwind-config">
                 tailwind.config = {
                         darkMode: "class",
                         theme: {
@@ -202,6 +201,8 @@
                         },
                 }
         </script>
+        <!-- Tailwind Config injected from system prompt -->
+        
         <style type="text/tailwindcss">
                 @layer utilities {
             .material-symbols-outlined {
@@ -844,7 +845,7 @@
                                                         class="text-label-sm uppercase text-on-surface-variant tracking-wider">YOUR
                                                         RESUME</span>
                                         </div>
-                                        <div class="card-lift flex-grow min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-2xl cursor-pointer bg-surface-variant/60 backdrop-blur-sm hover:border-primary/60 hover:bg-primary/[0.02] transition-all group"
+                                        <div class="card-lift flex-grow min-h-[240px] border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-2xl cursor-pointer bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm hover:border-primary/60 hover:bg-primary/[0.02] transition-all group"
                                                 id="drop-zone">
                                                 <div
                                                         class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center mb-md group-hover:bg-primary/15 group-hover:scale-110 transition-all">
@@ -852,7 +853,7 @@
                                                                 class="material-symbols-outlined text-primary text-2xl transition-transform group-hover:-translate-y-0.5">upload_file</span>
                                                 </div>
                                                 <p
-                                                        class="font-body-sm text-on-surface-variant text-center max-w-[200px]">
+                                                        class="font-body-sm text-on-surface-variant text-center max-w-[250px]">
                                                         Drag and drop, or <span
                                                                 class="text-primary font-medium underline underline-offset-2">browse files</span>.
                                                         PDF or DOCX.</p>
@@ -865,13 +866,13 @@
                                                 class="hidden md:block absolute -left-[24px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-outline-variant to-transparent">
                                         </div>
                                         <div class="flex items-center gap-sm">
-                                                <span class="inline-block w-2 h-2 rounded-full bg-primary-fixed"></span>
+                                                <span class="inline-block w-2 h-2 rounded-full bg-primary"></span>
                                                 <span
                                                         class="text-label-sm uppercase text-on-surface-variant tracking-wider">JOB
                                                         DESCRIPTION</span>
                                         </div>
                                         <div
-                                                class="card-lift flex-grow min-h-[240px] flex flex-col rounded-xl bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/40 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(82,76,237,0.15)] transition-all">
+                                                class="card-lift flex-grow min-h-[240px] flex flex-col rounded-xl bg-white/70 dark:bg-surface-variant/60 backdrop-blur-sm border border-outline-variant/40 p-lg hover:border-primary/40 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(82,76,237,0.15)] transition-all">
                                                 <textarea aria-label="Job description input"
                                                         class="w-full flex-grow border-0 bg-transparent focus:ring-0 transition-all font-body-md text-on-surface resize-none placeholder:text-on-surface-variant/50"
                                                         placeholder="Paste the job description here..."></textarea>
@@ -931,12 +932,12 @@
 
                 function highlight(e) {
                         dropZone.classList.add('border-primary', 'bg-primary/10', 'scale-[1.01]');
-                        dropZone.classList.remove('border-outline-variant', 'bg-surface-variant/60');
+                        dropZone.classList.remove('border-outline-variant', 'bg-white/70', 'dark:bg-surface-variant/60');
                 }
 
                 function unhighlight(e) {
                         dropZone.classList.remove('border-primary', 'bg-primary/10', 'scale-[1.01]');
-                        dropZone.classList.add('border-outline-variant', 'bg-surface-variant/60');
+                        dropZone.classList.add('border-outline-variant', 'bg-white/70', 'dark:bg-surface-variant/60');
                 }
 
                 dropZone.addEventListener('drop', handleDrop, false);
