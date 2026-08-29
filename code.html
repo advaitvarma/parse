@@ -140,6 +140,13 @@
             height: 0;
         }
 
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgb(var(--color-outline-variant) / 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgb(var(--color-outline-variant) / 0.15) 1px, transparent 1px);
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
             vertical-align: middle;
@@ -358,6 +365,9 @@
 
 <body
     class="bg-background text-on-background font-sans antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white relative overflow-x-hidden">
+
+    <!-- Fixed Grid Background -->
+    <div class="fixed inset-0 pointer-events-none bg-grid z-0"></div>
 
     <!-- Parallax ambient glow orbs matching index -->
     <div class="orb orb-1" data-parallax></div>
@@ -625,6 +635,8 @@
         </section>
 
     </main>
+
+
 
     <!-- Parallax Glow Orbs JS & Scroll Logic -->
     <script>

@@ -263,6 +263,13 @@
                         height: 0;
                 }
 
+                .bg-grid {
+                        background-size: 40px 40px;
+                        background-image: 
+                                linear-gradient(to right, rgb(var(--color-outline-variant) / 0.15) 1px, transparent 1px),
+                                linear-gradient(to bottom, rgb(var(--color-outline-variant) / 0.15) 1px, transparent 1px);
+                }
+
                 /* Animated floating orbs */
                 @keyframes orb1 {
 
@@ -641,6 +648,8 @@
 </head>
 
 <body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased overflow-x-hidden">
+        <!-- Fixed Grid Background -->
+        <div class="fixed inset-0 pointer-events-none bg-grid z-0"></div>
 
 <button id="theme-toggle" type="button" class="fixed top-6 right-6 z-[100] p-2 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors shadow-sm flex items-center justify-center">
     <span class="material-symbols-outlined dark:hidden">dark_mode</span>
@@ -726,11 +735,11 @@
                                                 </div>
                                                 <!-- Active fill line (animated via JS transform: scaleX) -->
                                                 <div id="pipeline-fill"
-                                                        class="absolute top-[11px] left-[12.5%] w-[75%] h-[2px] bg-gradient-to-r from-transparent via-primary to-primary rounded-full origin-left will-change-transform shadow-[0_0_10px_rgba(82,76,237,0.5)]"
+                                                        class="absolute top-[11px] left-[12.5%] w-[75%] h-[2px] bg-gradient-to-r from-transparent via-primary to-primary rounded-full origin-left will-change-transform shadow-[0_0_15px_rgba(82,76,237,0.8)]"
                                                         style="transform: scaleX(0);">
                                                         <!-- Glowing head -->
-                                                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[20px] h-[3px] bg-white blur-[2px] rounded-full"></div>
-                                                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[6px] h-[6px] bg-white rounded-full shadow-[0_0_15px_4px_rgba(82,76,237,1)]"></div>
+                                                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[30px] h-[4px] bg-white blur-[3px] rounded-full"></div>
+                                                        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[8px] h-[8px] bg-white rounded-full shadow-[0_0_25px_8px_rgba(82,76,237,1)]"></div>
                                                 </div>
 
                                                 <div class="grid grid-cols-4">
@@ -806,11 +815,11 @@
                                                         class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-outline-variant/30 rounded-full">
                                                 </div>
                                                 <div id="pipeline-fill-mobile"
-                                                        class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-gradient-to-b from-transparent via-primary to-primary rounded-full origin-top will-change-transform shadow-[0_0_10px_rgba(82,76,237,0.5)]"
+                                                        class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-gradient-to-b from-transparent via-primary to-primary rounded-full origin-top will-change-transform shadow-[0_0_15px_rgba(82,76,237,0.8)]"
                                                         style="transform: scaleY(0);">
                                                         <!-- Glowing head -->
-                                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] h-[20px] bg-white blur-[2px] rounded-full"></div>
-                                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[6px] h-[6px] bg-white rounded-full shadow-[0_0_15px_4px_rgba(82,76,237,1)]"></div>
+                                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[4px] h-[30px] bg-white blur-[3px] rounded-full"></div>
+                                                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[8px] h-[8px] bg-white rounded-full shadow-[0_0_25px_8px_rgba(82,76,237,1)]"></div>
                                                 </div>
 
                                                 <div class="pipeline-step-m flex items-start gap-lg pb-xl"
@@ -960,6 +969,8 @@
                         </section>
 
                 </main>
+
+
 
         </div>
 
