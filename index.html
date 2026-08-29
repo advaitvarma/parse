@@ -351,7 +351,9 @@
                         opacity: 1;
                         z-index: 0;
                         pointer-events: none;
-                        transition: transform 0.1s linear;
+                        will-change: transform;
+                        transform: translate3d(0, 0, 0);
+                        backface-visibility: hidden;
                 }
 
                 .orb-1 {
@@ -647,7 +649,7 @@
 
         <!-- Straight Scroll Progress Bar on Right Side (Full Height) -->
         <div id="side-progress-track" class="fixed right-0 top-0 bottom-0 w-1 sm:w-1.5 bg-outline-variant/20 dark:bg-outline-variant/15 z-50 pointer-events-none">
-            <div id="side-progress-bar" class="w-full h-full origin-top bg-gradient-to-b from-primary via-primary to-primary-dark rounded-b shadow-[0_0_10px_rgba(82,76,237,0.7)]" style="transform: scaleY(0);"></div>
+            <div id="side-progress-bar" class="w-full h-full origin-top bg-gradient-to-b from-primary via-primary to-primary-dark rounded-b shadow-[0_0_10px_rgba(82,76,237,0.7)] will-change-transform" style="transform: scaleY(0);"></div>
         </div>
 
 
@@ -705,7 +707,7 @@
 
 
                         <!-- How Parse Works - Sticky Container -->
-                        <div id="pipeline-container" class="w-full relative h-[175vh] z-10">
+                        <div id="pipeline-container" class="w-full relative h-[275vh] z-10">
                                 <section class="w-full max-w-4xl mx-auto sticky top-0 h-screen flex flex-col justify-center py-3xl"
                                         id="how-it-works">
                                         <div class="text-center mb-3xl">
@@ -722,10 +724,10 @@
                                                 <div
                                                         class="absolute top-[11px] left-[12.5%] w-[75%] h-[2px] bg-outline-variant/30 rounded-full">
                                                 </div>
-                                                <!-- Active fill line (animated via JS) -->
+                                                <!-- Active fill line (animated via JS transform: scaleX) -->
                                                 <div id="pipeline-fill"
-                                                        class="absolute top-[11px] left-[12.5%] h-[2px] bg-gradient-to-r from-transparent via-primary to-primary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(82,76,237,0.5)]"
-                                                        style="width: 0%;">
+                                                        class="absolute top-[11px] left-[12.5%] w-[75%] h-[2px] bg-gradient-to-r from-transparent via-primary to-primary rounded-full origin-left will-change-transform shadow-[0_0_10px_rgba(82,76,237,0.5)]"
+                                                        style="transform: scaleX(0);">
                                                         <!-- Glowing head -->
                                                         <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[20px] h-[3px] bg-white blur-[2px] rounded-full"></div>
                                                         <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[6px] h-[6px] bg-white rounded-full shadow-[0_0_15px_4px_rgba(82,76,237,1)]"></div>
@@ -804,8 +806,8 @@
                                                         class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-outline-variant/30 rounded-full">
                                                 </div>
                                                 <div id="pipeline-fill-mobile"
-                                                        class="absolute left-[10px] top-[11px] w-[2px] bg-gradient-to-b from-transparent via-primary to-primary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(82,76,237,0.5)]"
-                                                        style="height: 0%;">
+                                                        class="absolute left-[10px] top-[11px] bottom-[11px] w-[2px] bg-gradient-to-b from-transparent via-primary to-primary rounded-full origin-top will-change-transform shadow-[0_0_10px_rgba(82,76,237,0.5)]"
+                                                        style="transform: scaleY(0);">
                                                         <!-- Glowing head -->
                                                         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] h-[20px] bg-white blur-[2px] rounded-full"></div>
                                                         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[6px] h-[6px] bg-white rounded-full shadow-[0_0_15px_4px_rgba(82,76,237,1)]"></div>
@@ -1022,7 +1024,7 @@
                 function updateSideProgress(progress) {
                     const progressClamped = Math.min(1, Math.max(0, progress));
                     if (sideProgressBar) {
-                        sideProgressBar.style.transform = `scaleY(${progressClamped})`;
+                        sideProgressBar.style.transform = `scaleY(${progressClamped}) translateZ(0)`;
                     }
                 }
 
@@ -1036,11 +1038,11 @@
                 let ticking = false;
 
                 function updateParallax(progress) {
-                    orbs.forEach((orb, i) => {
+                    for (let i = 0; i < orbs.length; i++) {
                         const yOffset = progress * maxMoveY[i];
                         const xOffset = progress * maxMoveX[i];
-                        orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-                    });
+                        orbs[i].style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
+                    }
                 }
 
                 // --- Pipeline Scroll Animation ---
@@ -1060,81 +1062,79 @@
                 const mobileTitles = document.querySelectorAll('#pipeline-mobile .step-title-m');
                 const mobileDescs = document.querySelectorAll('#pipeline-mobile .step-desc-m');
 
+                const currentStepStatesDesktop = [-1, -1, -1, -1];
+                const currentStepStatesMobile = [-1, -1, -1, -1];
+
+                const updateStep = (index, isActive, dots, inners, titles, descs) => {
+                        if (isActive) {
+                                dots[index].style.borderColor = '#524CED';
+                                inners[index].style.backgroundColor = '#524CED';
+
+                                titles[index].classList.remove('text-on-surface-variant');
+                                titles[index].classList.add('text-on-surface');
+
+                                descs[index].classList.remove('opacity-0');
+                                descs[index].classList.add('opacity-100', 'mt-xs');
+                                descs[index].style.maxHeight = '100px';
+                        } else {
+                                dots[index].style.borderColor = '';
+                                inners[index].style.backgroundColor = '';
+
+                                titles[index].classList.add('text-on-surface-variant');
+                                titles[index].classList.remove('text-on-surface');
+
+                                descs[index].classList.add('opacity-0');
+                                descs[index].classList.remove('opacity-100', 'mt-xs');
+                                descs[index].style.maxHeight = '0px';
+                        }
+                };
+
                 function updatePipelineProgress() {
                         if (!pipelineContainer) return;
 
                         const rect = pipelineContainer.getBoundingClientRect();
                         const windowHeight = window.innerHeight;
-
-                        // Total scrollable distance within the sticky container
                         const totalScroll = rect.height - windowHeight;
 
-                        // Calculate progress based on how far the container has scrolled up past the viewport top
                         let progress = (-rect.top) / totalScroll;
-                        progress = Math.max(0, Math.min(1, progress)); // Clamp between 0 and 1
+                        progress = Math.max(0, Math.min(1, progress));
 
-                        // Update fill lines
-                        // Desktop spans from 12.5% to 87.5% (total width 75%)
-                        if (fillDesktop) fillDesktop.style.width = `${progress * 75}%`;
-                        if (fillMobile) fillMobile.style.height = `${progress * 100}%`;
+                        if (fillDesktop) fillDesktop.style.transform = `scaleX(${progress})`;
+                        if (fillMobile) fillMobile.style.transform = `scaleY(${progress})`;
 
-                        // Activate steps based on progress thresholds
                         const thresholds = [0.0, 0.33, 0.66, 0.95];
-
-                        const updateStep = (index, isActive, dots, inners, titles, descs) => {
-                                if (isActive) {
-                                        dots[index].style.borderColor = '#524CED';
-                                        inners[index].style.backgroundColor = '#524CED';
-
-                                        titles[index].classList.remove('text-on-surface-variant');
-                                        titles[index].classList.add('text-on-surface');
-
-                                        descs[index].classList.remove('opacity-0');
-                                        descs[index].classList.add('opacity-100', 'mt-xs');
-                                        descs[index].style.maxHeight = '100px';
-                                } else {
-                                        dots[index].style.borderColor = ''; // Reverts to CSS class
-                                        inners[index].style.backgroundColor = '';
-
-                                        titles[index].classList.add('text-on-surface-variant');
-                                        titles[index].classList.remove('text-on-surface');
-
-                                        descs[index].classList.add('opacity-0');
-                                        descs[index].classList.remove('opacity-100', 'mt-xs');
-                                        descs[index].style.maxHeight = '0px';
-                                }
-                        };
 
                         for (let i = 0; i < 4; i++) {
                                 const isActive = progress >= thresholds[i];
 
-                                // Update desktop
-                                if (desktopSteps.length) {
+                                if (desktopSteps.length && currentStepStatesDesktop[i] !== isActive) {
+                                        currentStepStatesDesktop[i] = isActive;
                                         updateStep(i, isActive, desktopDots, desktopDotInners, desktopTitles, desktopDescs);
                                 }
-                                // Update mobile
-                                if (mobileSteps.length) {
+                                if (mobileSteps.length && currentStepStatesMobile[i] !== isActive) {
+                                        currentStepStatesMobile[i] = isActive;
                                         updateStep(i, isActive, mobileDots, mobileDotInners, mobileTitles, mobileDescs);
                                 }
                         }
                 }
 
                 function onScroll() {
-                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    const scrollY = window.scrollY;
+                    ticking = false;
+                    const windowHeight = window.innerHeight;
+                    const scrollY = window.scrollY || window.pageYOffset;
+                    const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - windowHeight;
                     const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
 
                     updateParallax(progress);
                     updatePipelineProgress();
                     updateSideProgress(progress);
-                    ticking = false;
                 }
 
                 // --- Scroll Event Listener ---
                 window.addEventListener('scroll', () => {
                         if (!ticking) {
-                                requestAnimationFrame(onScroll);
                                 ticking = true;
+                                requestAnimationFrame(onScroll);
                         }
                 }, { passive: true });
 
